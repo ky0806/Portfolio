@@ -128,9 +128,16 @@
     }
     .field textarea { min-height: 130px; resize: vertical; }
     .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); }
-    .hp { position: absolute; left: -9999px; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .contact-form .btn { width: 100%; cursor: pointer; font-family: inherit; }
-    .note { margin-top: 14px; color: var(--muted); font-size: .8rem; text-align: center; }
+    .contact-form .btn:disabled { opacity: .6; cursor: default; }
+    .status {
+      margin-top: 18px; padding: 14px 16px; font-size: .95rem; text-align: center;
+      border: 1px solid var(--border);
+    }
+    .status[hidden] { display: none; }
+    .status.ok { border-color: var(--gold); color: var(--gold-light); background: rgba(201, 169, 110, .08); }
+    .status.err { border-color: #8a4b3f; color: #e0a99c; background: rgba(138, 75, 63, .1); }
 
     footer {
       padding: 40px 0 60px; color: var(--muted); font-size: .8rem;
@@ -203,31 +210,22 @@
       <form id="contact-form" class="contact-form">
         <div class="field">
           <label for="c-name">Name</label>
-          <input id="c-name" name="name" type="text" autocomplete="name" required>
+          <input id="c-name" name="name" type="text" autocomplete="name" maxlength="100" required>
         </div>
         <div class="field">
           <label for="c-email">Email</label>
-          <input id="c-email" name="email" type="email" autocomplete="email" required>
-        </div>
-        <div class="field">
-          <label for="c-subject">Subject</label>
-          <select id="c-subject" name="subject">
-            <option>General question</option>
-            <option>Project / collaboration</option>
-            <option>Job opportunity</option>
-            <option>Other</option>
-          </select>
+          <input id="c-email" name="email" type="email" autocomplete="email" maxlength="200" required>
         </div>
         <div class="field">
           <label for="c-message">Message</label>
-          <textarea id="c-message" name="message" required></textarea>
+          <textarea id="c-message" name="message" maxlength="5000" required></textarea>
         </div>
-        <div class="field hp" aria-hidden="true">
+        <div class="hp" aria-hidden="true">
           <label for="c-website">Leave this empty</label>
           <input id="c-website" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
         <button type="submit" class="btn primary">Send message</button>
-        <p class="note">Sending opens your email app with the message ready to go. I'll get back to you as soon as I can.</p>
+        <p class="status" id="form-status" role="status" aria-live="polite" hidden></p>
       </form>
     </section>
 
@@ -237,15 +235,48 @@
   <script>
     (function () {
       var form = document.getElementById('contact-form');
-      var TO = 'kaan2008nl@hotmail.com';
+      var button = form.querySelector('button[type="submit"]');
+      var status = document.getElementById('form-status');
+      var idleLabel = button.textContent;
+      var FAIL = 'Versturen is mislukt. Probeer het later opnieuw of mail me direct via het adres hierboven.';
+
+      function show(kind, text) {
+        status.className = 'status ' + kind;
+        status.textContent = text;
+        status.hidden = false;
+      }
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (form.website.value) return;
-        var subject = form.subject.value + ' — ' + form.name.value.trim();
-        var body = form.message.value.trim() + '\n\n—\n' + form.name.value.trim() + '\n' + form.email.value.trim();
-        window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        form.reset();
+        status.hidden = true;
+        button.disabled = true;
+        button.textContent = 'Verzenden…';
+
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value,
+            website: form.website.value
+          })
+        })
+          .then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (data) {
+              if (res.ok && data.ok) {
+                show('ok', 'Bedankt! Ik neem snel contact met je op.');
+                form.reset();
+              } else {
+                show('err', res.status === 400 && data.error ? data.error : FAIL);
+              }
+            });
+          })
+          .catch(function () { show('err', FAIL); })
+          .then(function () {
+            button.disabled = false;
+            button.textContent = idleLabel;
+          });
       });
     })();
   </script>

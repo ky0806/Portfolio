@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kaan Yücel</title>
+  <meta name="description" content="Portfolio of Kaan Yücel — aspiring AI engineer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --card: #141821;
+      --text: #e8ebf1;
+      --muted: #9aa3b2;
+      --accent: #7c9cff;
+      --border: #232938;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    header { padding: 96px 0 64px; }
+    .tag { color: var(--accent); font-weight: 600; letter-spacing: .04em; }
+    h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 800; line-height: 1.1; margin: 12px 0 20px; }
+    .intro { color: var(--muted); font-size: 1.15rem; max-width: 600px; }
+    .links { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 10px 18px; border-radius: 10px;
+      border: 1px solid var(--border); color: var(--text); text-decoration: none;
+      font-weight: 600; transition: border-color .2s, transform .2s;
+    }
+    .btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .btn.primary { background: var(--accent); color: #0b0d12; border-color: var(--accent); }
+    section { padding: 48px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: 1.5rem; margin-bottom: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 22px; transition: border-color .2s, transform .2s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: .95rem; }
+    .stack { margin-top: 14px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .stack span {
+      font-size: .78rem; padding: 3px 9px; border-radius: 99px;
+      background: #1d2330; color: var(--accent);
+    }
+    .card a { display: inline-block; margin-top: 14px; color: var(--accent); text-decoration: none; font-weight: 600; }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="tag">AI ENGINEER IN THE MAKING</div>
+      <h1>Hi, I'm Kaan Yücel.</h1>
+      <p class="intro">I build websites, tools and AI-powered applications. This is where I share what I've made and what I'm learning.</p>
+      <div class="links">
+        <a class="btn primary" href="mailto:your@email.com">Contact me</a>
+        <a class="btn" href="https://github.com/YOUR-USERNAME">GitHub</a>
+        <a class="btn" href="https://linkedin.com/in/YOUR-PROFILE">LinkedIn</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Projects</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Project one</h3>
+          <p>Short description: the problem, what you built and the result.</p>
+          <div class="stack"><span>HTML</span><span>JavaScript</span></div>
+          <a href="#">View project →</a>
+        </div>
+        <div class="card">
+          <h3>Project two</h3>
+          <p>Short description: the problem, what you built and the result.</p>
+          <div class="stack"><span>Python</span><span>LLM</span></div>
+          <a href="#">View project →</a>
+        </div>
+        <div class="card">
+          <h3>Project three</h3>
+          <p>Short description: the problem, what you built and the result.</p>
+          <div class="stack"><span>Supabase</span><span>Vercel</span></div>
+          <a href="#">View project →</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2026 Kaan Yücel</footer>
+  </div>
+</body>
+</html>

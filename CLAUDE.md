@@ -36,11 +36,11 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - De labels "Live demo" en "Code" staan in `translations` (`projects.demo`, `projects.code`).
 - De drie huidige projecten zijn placeholders (de links van project 1 en 2 zijn voorbeeldwaarden en moeten nog vervangen worden).
 
-## Profielfoto en klokje
-- Profielfoto: zet je foto op `images/profile.jpg`. Vierkant, 400×400 px, gezicht in het midden (wordt rond bijgesneden en getoond op ca. 38 px), liefst onder 100 KB. Tot er een foto staat toont de site een gouden silhouet.
-- Klokje in de hero: toont "Weert, NL" met de tijd in Europe/Amsterdam en werkt elke minuut bij (script onderaan, `tick`). De plaatsnaam staat in de HTML (`.clock`).
-- Navigatie is sticky (`.site-nav`): foto + K.Y. links, rechts Projecten (verborgen onder 520 px), de Contact-knop en de taalswitch.
-- Openingszin onder de naam: `hero.statement` in `translations`. Let op het onzichtbare "word joiner"-teken in "AI-⁠toepassing", dat voorkomt een regelafbreking na het streepje.
+## Navigatie, klokje en animaties
+- Navigatie is sticky (`.site-nav`): links het klokje, rechts Projecten (verborgen onder 520 px), de Contact-knop en de taalswitch. Er is bewust geen logo of profielfoto in de nav.
+- Klokje: toont "Weert, NL" met de tijd in Europe/Amsterdam en werkt elke minuut bij (script onderaan, `tick`). De plaatsnaam staat in de HTML (`.clock`).
+- Tagline boven de naam: `hero.tag` in `translations` ("Student · AI Engineer · Builder"). Openingszin onder de naam: `hero.statement`. Let op het onzichtbare "word joiner"-teken in "AI-⁠toepassing", dat voorkomt een regelafbreking na het streepje.
+- Inkomen bij scrollen: koppen, projectkaarten en het contactformulier vliegen geleidelijk in via `reveal()` (IntersectionObserver, klasse `.reveal`/`.in`). De klassen worden na afloop weggehaald, zodat de hover-animatie van de kaarten blijft werken. Bij "minder beweging" (`prefers-reduced-motion`) of zonder IntersectionObserver gebeurt dit niet. Een nieuw element laten inkomen: `reveal(element, vertraging_in_seconden)`.
 
 ## Stijl
 - Luxe uitstraling: warm zwart (#0e0c0a) met champagne-goud (#c9a96e / #e2c99a) en ivoor tekst.

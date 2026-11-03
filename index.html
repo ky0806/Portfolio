@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kaan Yücel — AI Engineer in wording</title>
-  <meta name="description" content="Portfolio van Kaan Yücel — aspirant AI-engineer.">
+  <title>Kaan Yücel — Student &amp; AI Engineer</title>
+  <meta name="description" content="Portfolio van Kaan Yücel — student, AI engineer en bouwer van websites en AI-tools.">
   <script>
     // Voorkomt een flits van de verkeerde taal: wie eerder EN koos, ziet de pagina pas als die vertaald is.
     (function () {
@@ -56,18 +56,6 @@
     }
     .site-nav.scrolled { border-bottom-color: var(--border); }
     .nav-inner { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); }
-    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .avatar {
-      position: relative; width: 38px; height: 38px; flex: none; overflow: hidden;
-      border-radius: 50%; border: 1px solid var(--gold);
-      background: radial-gradient(circle at 30% 25%, #2a2218, var(--card));
-    }
-    .avatar svg { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--gold); opacity: .8; }
-    .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .logo {
-      font-family: 'Playfair Display', serif; font-size: 1.3rem;
-      color: var(--gold); letter-spacing: .02em;
-    }
     .nav-right { display: flex; align-items: center; gap: 22px; }
     nav a.link {
       color: var(--muted); text-decoration: none; font-size: .82rem;
@@ -89,8 +77,8 @@
     /* ---------- Hero ---------- */
     header { padding: 64px 0 100px; }
     .clock {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 26px;
-      color: var(--muted); font-size: .74rem; text-transform: uppercase; letter-spacing: .2em;
+      display: flex; align-items: center; gap: 8px; white-space: nowrap;
+      color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .18em;
     }
     .clock[hidden] { display: none; }
     .clock .dot {
@@ -209,6 +197,14 @@
     .status.ok { border-color: var(--gold); color: var(--gold-light); background: rgba(201, 169, 110, .08); }
     .status.err { border-color: #8a4b3f; color: #e0a99c; background: rgba(138, 75, 63, .1); }
 
+    /* Geleidelijk inkomen bij scrollen; de klassen worden door het script gezet en na afloop weer weggehaald. */
+    .reveal {
+      opacity: 0; transform: translateY(42px);
+      transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1);
+      transition-delay: var(--d, 0s);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
     footer {
       padding: 40px 0 60px; color: var(--muted); font-size: .8rem;
       text-align: center; letter-spacing: .15em; text-transform: uppercase;
@@ -220,7 +216,9 @@
       .nav-right { gap: 12px; }
       nav a.link { font-size: .72rem; letter-spacing: .12em; }
       .lang { font-size: .72rem; letter-spacing: .1em; }
+      .clock { font-size: .66rem; letter-spacing: .1em; gap: 6px; }
       header { padding: 44px 0 70px; }
+      .tag { letter-spacing: .2em; }
       .card-body { padding: 22px 22px 24px; }
     }
     @media (max-width: 520px) {
@@ -228,9 +226,9 @@
     }
     @media (max-width: 380px) {
       .wrap { padding: 0 16px; }
-      .brand { gap: 8px; }
-      .logo { font-size: 1.15rem; }
       .nav-right { gap: 8px; }
+      .clock { font-size: .62rem; letter-spacing: .06em; gap: 5px; }
+      .clock .sep { display: none; }
       .btn-sm { padding: 7px 12px; font-size: .66rem; letter-spacing: .1em; }
       .lang { font-size: .66rem; }
       .contact-form { padding: 28px 20px; }
@@ -244,14 +242,7 @@
 <body>
   <nav class="site-nav" id="site-nav">
     <div class="wrap nav-inner">
-      <a class="brand" href="#" aria-label="Kaan Yücel">
-        <!-- Profielfoto: zet je eigen foto op images/profile.jpg (vierkant, 400×400 px). Tot dan zie je dit silhouet. -->
-        <span class="avatar">
-          <svg viewBox="0 0 38 38" fill="currentColor" aria-hidden="true"><circle cx="19" cy="14.5" r="6.5"/><path d="M6 38c0-8 5.8-12.5 13-12.5S32 30 32 38z"/></svg>
-          <img src="images/profile.jpg" alt="" width="38" height="38" onerror="this.remove()">
-        </span>
-        <span class="logo">K.Y.</span>
-      </a>
+      <div class="clock"><span class="dot" aria-hidden="true"></span><span>Weert, NL</span><span class="sep" aria-hidden="true">·</span><time id="clock">--:--</time></div>
       <div class="nav-right">
         <a class="link nav-projects" href="#projects" data-i18n="nav.projects">Projecten</a>
         <a class="btn btn-sm" href="#contact" data-i18n="nav.contact">Contact</a>
@@ -266,8 +257,7 @@
 
   <div class="wrap">
     <header>
-      <div class="clock"><span class="dot" aria-hidden="true"></span><span>Weert, NL</span><span aria-hidden="true">·</span><time id="clock">--:--</time></div>
-      <div class="tag" data-i18n="hero.tag">AI Engineer in wording</div>
+      <div class="tag" data-i18n="hero.tag">Student · AI Engineer · Builder</div>
       <div class="line"></div>
       <h1><em>Kaan Yücel</em></h1>
       <p class="statement" data-i18n="hero.statement">Van idee naar werkende AI-⁠toepassing.</p>
@@ -365,13 +355,13 @@
     // ---------------------------------------------------------------
     var translations = {
       nl: {
-        'meta.title': 'Kaan Yücel — AI Engineer in wording',
-        'meta.description': 'Portfolio van Kaan Yücel — aspirant AI-engineer.',
+        'meta.title': 'Kaan Yücel — Student & AI Engineer',
+        'meta.description': 'Portfolio van Kaan Yücel — student, AI engineer en bouwer van websites en AI-tools.',
 
         'nav.projects': 'Projecten',
         'nav.contact': 'Contact',
 
-        'hero.tag': 'AI Engineer in wording',
+        'hero.tag': 'Student · AI Engineer · Builder',
         'hero.statement': 'Van idee naar werkende AI-⁠toepassing.',
         'hero.contact': 'Neem contact op',
 
@@ -401,13 +391,13 @@
         'footer.text': '© 2026 Kaan Yücel'
       },
       en: {
-        'meta.title': 'Kaan Yücel — AI Engineer in the making',
-        'meta.description': 'Portfolio of Kaan Yücel — aspiring AI engineer.',
+        'meta.title': 'Kaan Yücel — Student & AI Engineer',
+        'meta.description': 'Portfolio of Kaan Yücel — student, AI engineer and builder of websites and AI tools.',
 
         'nav.projects': 'Projects',
         'nav.contact': 'Contact',
 
-        'hero.tag': 'AI Engineer in the making',
+        'hero.tag': 'Student · AI Engineer · Builder',
         'hero.statement': 'From idea to working AI application.',
         'hero.contact': 'Contact me',
 
@@ -479,6 +469,35 @@
         return a;
       }
 
+      // Inkomen bij scrollen. Zonder IntersectionObserver of bij "minder beweging" blijft alles gewoon staan.
+      var canReveal = 'IntersectionObserver' in window &&
+        !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      var projectsRevealed = false; // na de eerste keer krijgen opnieuw getekende kaarten (taalwissel) geen animatie meer
+      var revealObserver = canReveal && new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          revealObserver.unobserve(entry.target);
+          if (entry.target.classList.contains('card')) projectsRevealed = true;
+          entry.target.classList.add('in');
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+      function reveal(el, delay) {
+        if (!canReveal) return;
+        el.style.setProperty('--d', delay + 's');
+        el.style.transition = 'none'; // direct verbergen, zonder weg te faden
+        el.classList.add('reveal');
+        void el.offsetWidth;
+        el.style.transition = '';
+        el.addEventListener('transitionend', function done(e) {
+          if (e.target !== el || e.propertyName !== 'opacity' || !el.classList.contains('in')) return;
+          el.removeEventListener('transitionend', done);
+          el.classList.remove('reveal', 'in');
+          el.style.removeProperty('--d');
+        });
+        revealObserver.observe(el);
+      }
+
       function renderProjects() {
         grid.textContent = '';
         projects.forEach(function (project, i) {
@@ -517,6 +536,7 @@
 
           card.appendChild(body);
           grid.appendChild(card);
+          if (!projectsRevealed) reveal(card, 0.2 + i * 0.12);
         });
       }
 
@@ -609,6 +629,12 @@
       function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 8); }
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+
+      reveal(document.querySelector('#projects h2'), 0);
+      reveal(document.querySelector('#projects .sub'), 0.1);
+      reveal(document.querySelector('#contact h2'), 0);
+      reveal(document.querySelector('#contact .sub'), 0.1);
+      reveal(form, 0.2);
 
       // Standaard Nederlands, ongeacht de browsertaal. Alleen een eerdere EN-keuze van de bezoeker telt.
       var saved = null;

@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
 
   const data = parseBody(req);
   if (!data) {
-    return res.status(400).json({ ok: false, error: 'Ongeldig verzoek.' });
+    return res.status(400).json({ ok: false, error: 'Invalid request.' });
   }
 
   // Honeypot: bots vullen dit verborgen veld in. Doe alsof het gelukt is, verstuur niets.
@@ -45,20 +45,20 @@ module.exports = async function handler(req, res) {
   const message = typeof data.message === 'string' ? data.message.trim() : '';
 
   if (!name || !email || !message) {
-    return res.status(400).json({ ok: false, error: 'Vul alle velden in.' });
+    return res.status(400).json({ ok: false, error: 'Please fill in all fields.' });
   }
   if (name.length > LIMITS.name || email.length > LIMITS.email || message.length > LIMITS.message) {
-    return res.status(400).json({ ok: false, error: 'Een van de velden is te lang.' });
+    return res.status(400).json({ ok: false, error: 'One of the fields is too long.' });
   }
   if (!EMAIL_RE.test(email)) {
-    return res.status(400).json({ ok: false, error: 'Vul een geldig e-mailadres in.' });
+    return res.status(400).json({ ok: false, error: 'Please enter a valid email address.' });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO;
   if (!apiKey || !to) {
     console.error('Contact form: RESEND_API_KEY or CONTACT_TO is not set');
-    return res.status(500).json({ ok: false, error: 'Versturen is mislukt. Probeer het later opnieuw.' });
+    return res.status(500).json({ ok: false, error: 'Sending failed. Please try again later.' });
   }
 
   // Geen regeleinden in de naam, zodat die niet in de mail-header terechtkomen.
@@ -87,12 +87,12 @@ module.exports = async function handler(req, res) {
     if (!response.ok) {
       // Details alleen in de serverlogs, nooit naar de browser.
       console.error('Resend error', response.status, await response.text());
-      return res.status(500).json({ ok: false, error: 'Versturen is mislukt. Probeer het later opnieuw.' });
+      return res.status(500).json({ ok: false, error: 'Sending failed. Please try again later.' });
     }
 
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Contact form: request to Resend failed', err && err.message);
-    return res.status(500).json({ ok: false, error: 'Versturen is mislukt. Probeer het later opnieuw.' });
+    return res.status(500).json({ ok: false, error: 'Sending failed. Please try again later.' });
   }
 };

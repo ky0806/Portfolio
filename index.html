@@ -205,7 +205,6 @@
     <section id="contact" class="contact">
       <h2>Let's work together</h2>
       <p class="sub" style="margin-bottom:0">Have a project or opportunity in mind? Get in touch.</p>
-      <a class="mail" href="mailto:kaan2008nl@hotmail.com">kaan2008nl@hotmail.com</a>
 
       <form id="contact-form" class="contact-form">
         <div class="field">
@@ -238,7 +237,7 @@
       var button = form.querySelector('button[type="submit"]');
       var status = document.getElementById('form-status');
       var idleLabel = button.textContent;
-      var FAIL = 'Versturen is mislukt. Probeer het later opnieuw of mail me direct via het adres hierboven.';
+      var FAIL = 'Sending failed. Please try again later.';
 
       function show(kind, text) {
         status.className = 'status ' + kind;
@@ -250,7 +249,7 @@
         e.preventDefault();
         status.hidden = true;
         button.disabled = true;
-        button.textContent = 'Verzenden…';
+        button.textContent = 'Sending…';
 
         fetch('/api/contact', {
           method: 'POST',
@@ -265,7 +264,7 @@
           .then(function (res) {
             return res.json().catch(function () { return {}; }).then(function (data) {
               if (res.ok && data.ok) {
-                show('ok', 'Bedankt! Ik neem snel contact met je op.');
+                show('ok', 'Thank you! I\'ll get back to you soon.');
                 form.reset();
               } else {
                 show('err', res.status === 400 && data.error ? data.error : FAIL);

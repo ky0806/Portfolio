@@ -17,7 +17,8 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
   - `RESEND_API_KEY`: API-sleutel uit het Resend-account.
   - `CONTACT_TO`: ontvanger van de berichten (kaanspam@outlook.com).
 - Met de testafzender `onboarding@resend.dev` mailt Resend alleen naar het adres van het Resend-account zelf. Voor andere ontvangers eerst het domein kaanyucel.nl verifiëren in Resend en de afzender aanpassen.
-- De mailto-link naar kaan2008nl@hotmail.com staat boven het formulier als alternatief.
+- Het e-mailadres staat bewust niet zichtbaar in het contactblok; bezoekers gebruiken alleen het formulier.
+- Alle meldingen aan bezoekers (formulier en API-fouten) zijn in het Engels, net als de rest van de site. Alleen het onderwerp van de mail aan Kaan is Nederlands.
 - Lokaal testen kan met `vercel dev` (de `/api`-route werkt niet via een gewone statische server).
 
 ## Stijl

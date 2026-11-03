@@ -31,7 +31,7 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 ## Projecten toevoegen
 - Alle projecten staan in de lijst `projects` bovenaan het script onderaan `index.html`. De kaarten worden daaruit gebouwd; een project toevoegen of aanpassen = alleen die lijst wijzigen.
 - Velden per project: `title` en `description` (gewone tekst, of `{ nl: '...', en: '...' }` voor beide talen), `tags` (technieken als labels), `demo` (link live demo), `code` (link GitHub), `image` (pad naar screenshot).
-- Een leeg `demo` of `code` laat die knop weg. Een leeg `image` toont een placeholder in zwart/goud met het projectnummer.
+- Een leeg `demo` of `code` laat die knop weg. Een leeg `image` toont een placeholder in de siteskleuren met het projectnummer.
 - Screenshot: bijvoorbeeld `images/project-1.jpg`, verhouding 16:10, ca. 1200×750 px, liefst onder 200 KB. Zet de bestanden in de map `images/` en zet het pad in `image`.
 - De labels "Live demo" en "Code" staan in `translations` (`projects.demo`, `projects.code`).
 - De drie huidige projecten zijn placeholders (de links van project 1 en 2 zijn voorbeeldwaarden en moeten nog vervangen worden).
@@ -43,8 +43,8 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - Inkomen bij scrollen: koppen, projectkaarten en het contactformulier vliegen geleidelijk in via `reveal()` (IntersectionObserver, klasse `.reveal`/`.in`). De klassen worden na afloop weggehaald, zodat de hover-animatie van de kaarten blijft werken. Bij "minder beweging" (`prefers-reduced-motion`) of zonder IntersectionObserver gebeurt dit niet. Een nieuw element laten inkomen: `reveal(element, vertraging_in_seconden)`.
 
 ## Stijl
-- Luxe uitstraling: warm zwart (#0e0c0a) met champagne-goud (#c9a96e / #e2c99a) en ivoor tekst.
-- Fonts (Google Fonts): Cormorant Garamond voor de naam (h1, goud cursief), Playfair Display voor koppen, Jost voor lopende tekst. Geen Inter of Times New Roman.
+- Fris, modern en persoonlijk (geen "luxe": Kaan is een student, geen Rolls-Royce). Koel donker (#0a0e14, kaarten #121823) met mintgroen accent (`--accent` #5eead4, `--accent-light` #a5f3e6) en lichte tekst (#eef2f8, gedempt #94a3b8). Kleuren staan als CSS-variabelen bovenaan `index.html`; bovenin de pagina zit een zachte mintgroene gloed op de body.
+- Fonts (Google Fonts): Cormorant Garamond voor de naam (h1, cursief in de accentkleur), Playfair Display voor koppen, Jost voor lopende tekst. Geen Inter of Times New Roman.
 - Moet goed werken op mobiel.
 
 ## Inhoud

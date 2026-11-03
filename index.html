@@ -23,14 +23,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0e0c0a;
-      --bg-soft: #16130f;
-      --card: #1a1612;
-      --text: #f3ece0;
-      --muted: #a89f90;
-      --gold: #c9a96e;
-      --gold-light: #e2c99a;
-      --border: #2d261e;
+      --bg: #0a0e14;
+      --bg-soft: #0f141c;
+      --card: #121823;
+      --text: #eef2f8;
+      --muted: #94a3b8;
+      --accent: #5eead4;
+      --accent-light: #a5f3e6;
+      --border: #222b3a;
       --nav-h: 72px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,18 +39,20 @@
     body {
       font-family: 'Jost', sans-serif;
       font-weight: 300;
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: radial-gradient(ellipse 70% 520px at 12% 0, rgba(94, 234, 212, .12), transparent 70%);
+      background-repeat: no-repeat;
       color: var(--text);
       line-height: 1.7;
       letter-spacing: .01em;
     }
     .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-    a:focus-visible, button:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
+    a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
 
     /* ---------- Navigatie (sticky) ---------- */
     .site-nav {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(14, 12, 10, .88);
+      background: rgba(10, 14, 20, .55);
       -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
       border-bottom: 1px solid transparent; transition: border-color .3s;
     }
@@ -61,7 +63,7 @@
       color: var(--muted); text-decoration: none; font-size: .82rem;
       text-transform: uppercase; letter-spacing: .18em; transition: color .3s;
     }
-    nav a.link:hover { color: var(--gold-light); }
+    nav a.link:hover { color: var(--accent-light); }
 
     .lang { display: none; align-items: center; gap: 4px; font-size: .78rem; letter-spacing: .14em; }
     .js .lang { display: flex; }
@@ -70,8 +72,8 @@
       font: inherit; letter-spacing: inherit; text-transform: uppercase;
       color: var(--muted); transition: color .3s;
     }
-    .lang button:hover { color: var(--gold-light); }
-    .lang button[aria-pressed="true"] { color: var(--gold); font-weight: 500; }
+    .lang button:hover { color: var(--accent-light); }
+    .lang button[aria-pressed="true"] { color: var(--accent); font-weight: 500; }
     .lang .sep { color: var(--muted); opacity: .4; }
 
     /* ---------- Hero ---------- */
@@ -82,22 +84,22 @@
     }
     .clock[hidden] { display: none; }
     .clock .dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
       animation: pulse 2.4s ease-in-out infinite;
     }
-    .clock time { color: var(--gold-light); font-variant-numeric: tabular-nums; }
+    .clock time { color: var(--accent-light); font-variant-numeric: tabular-nums; }
     @keyframes pulse { 50% { opacity: .3; } }
     .tag {
-      color: var(--gold); font-size: .8rem; font-weight: 500;
+      color: var(--accent); font-size: .8rem; font-weight: 500;
       text-transform: uppercase; letter-spacing: .3em;
     }
-    .line { width: 60px; height: 1px; background: var(--gold); margin: 22px 0; }
+    .line { width: 60px; height: 1px; background: var(--accent); margin: 22px 0; }
     h1 {
       font-family: 'Cormorant Garamond', serif; font-weight: 500;
       font-size: clamp(3.4rem, 10vw, 6.5rem); line-height: 1; margin-bottom: 26px;
       letter-spacing: .01em;
     }
-    h1 em { color: var(--gold-light); font-style: italic; }
+    h1 em { color: var(--accent-light); font-style: italic; }
     .statement {
       font-family: 'Playfair Display', serif; font-weight: 500;
       font-size: clamp(1.7rem, 4.6vw, 2.9rem); line-height: 1.2;
@@ -106,14 +108,14 @@
     .links { margin-top: 44px; display: flex; gap: 14px; flex-wrap: wrap; }
     .btn {
       display: inline-block; padding: 13px 28px;
-      border: 1px solid var(--gold); color: var(--gold-light);
+      border: 1px solid var(--accent); color: var(--accent-light);
       text-decoration: none; font-size: .82rem; font-weight: 400;
       text-transform: uppercase; letter-spacing: .2em;
       transition: background .3s, color .3s;
     }
-    .btn:hover { background: var(--gold); color: var(--bg); }
-    .btn.primary { background: var(--gold); color: var(--bg); }
-    .btn.primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .btn:hover { background: var(--accent); color: var(--bg); }
+    .btn.primary { background: var(--accent); color: var(--bg); }
+    .btn.primary:hover { background: var(--accent-light); border-color: var(--accent-light); }
     .btn-sm { padding: 8px 18px; font-size: .72rem; letter-spacing: .16em; }
 
     /* ---------- Secties ---------- */
@@ -131,19 +133,19 @@
       background: var(--card); border: 1px solid var(--border);
       transition: border-color .4s, transform .4s, box-shadow .4s;
     }
-    .card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0, 0, 0, .35); }
+    .card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0, 0, 0, .35); }
     .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--bg-soft); }
     .shot img, .ph { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform .7s ease; }
     .shot img { object-fit: cover; display: block; }
     .ph {
       display: flex; align-items: center; justify-content: center;
       background:
-        repeating-linear-gradient(45deg, rgba(201, 169, 110, .045) 0 1px, transparent 1px 14px),
-        radial-gradient(ellipse at 28% 18%, rgba(201, 169, 110, .2), transparent 62%),
-        linear-gradient(135deg, #1d1813, #0e0c0a);
+        repeating-linear-gradient(45deg, rgba(94, 234, 212, .045) 0 1px, transparent 1px 14px),
+        radial-gradient(ellipse at 28% 18%, rgba(94, 234, 212, .2), transparent 62%),
+        linear-gradient(135deg, #151d2b, #0a0e14);
     }
-    .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(201, 169, 110, .28); }
-    .ph span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem; color: var(--gold); opacity: .55; }
+    .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(94, 234, 212, .28); }
+    .ph span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem; color: var(--accent); opacity: .55; }
     .card:hover .shot img, .card:hover .ph { transform: scale(1.05); }
     .card-body { display: flex; flex-direction: column; flex: 1; padding: 24px 26px 26px; }
     .card h3 {
@@ -154,17 +156,17 @@
     .stack { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
     .stack span {
       font-size: .7rem; padding: 4px 10px;
-      border: 1px solid var(--border); color: var(--gold-light);
+      border: 1px solid var(--border); color: var(--accent-light);
       text-transform: uppercase; letter-spacing: .12em;
     }
     .card-links { margin-top: auto; padding-top: 22px; display: flex; gap: 22px; flex-wrap: wrap; }
     .card-links a {
-      color: var(--gold); text-decoration: none; font-size: .78rem;
+      color: var(--accent); text-decoration: none; font-size: .78rem;
       text-transform: uppercase; letter-spacing: .2em;
       border-bottom: 1px solid transparent; padding-bottom: 2px;
       transition: color .3s, border-color .3s;
     }
-    .card-links a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+    .card-links a:hover { color: var(--accent-light); border-bottom-color: var(--accent); }
 
     /* ---------- Contact ---------- */
     .contact { text-align: center; }
@@ -175,7 +177,7 @@
     }
     .field { margin-bottom: 18px; }
     .field label {
-      display: block; margin-bottom: 6px; color: var(--gold);
+      display: block; margin-bottom: 6px; color: var(--accent);
       font-size: .72rem; font-weight: 500; text-transform: uppercase; letter-spacing: .2em;
     }
     .field input, .field textarea, .field select {
@@ -185,7 +187,7 @@
     }
     .field ::placeholder { color: var(--muted); opacity: .55; }
     .field textarea { min-height: 130px; resize: vertical; }
-    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--accent); }
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .contact-form .btn { width: 100%; cursor: pointer; font-family: inherit; }
     .contact-form .btn:disabled { opacity: .6; cursor: default; }
@@ -194,8 +196,8 @@
       border: 1px solid var(--border);
     }
     .status[hidden] { display: none; }
-    .status.ok { border-color: var(--gold); color: var(--gold-light); background: rgba(201, 169, 110, .08); }
-    .status.err { border-color: #8a4b3f; color: #e0a99c; background: rgba(138, 75, 63, .1); }
+    .status.ok { border-color: var(--accent); color: var(--accent-light); background: rgba(94, 234, 212, .08); }
+    .status.err { border-color: #b4534b; color: #f4a7a0; background: rgba(180, 83, 75, .12); }
 
     /* Geleidelijk inkomen bij scrollen; de klassen worden door het script gezet en na afloop weer weggehaald. */
     .reveal {

@@ -112,6 +112,39 @@
       border-bottom: 1px solid var(--gold); padding-bottom: 4px;
       word-break: break-all;
     }
+    .contact .btn { margin-top: 28px; background: transparent; cursor: pointer; font-family: inherit; }
+    .contact .btn.primary { background: var(--gold); }
+
+    dialog.modal {
+      background: var(--card); color: var(--text);
+      border: 1px solid var(--gold); padding: 40px 36px;
+      width: min(520px, calc(100% - 32px)); max-height: calc(100% - 32px);
+      margin: auto; overflow-y: auto;
+    }
+    dialog.modal::backdrop { background: rgba(14, 12, 10, .8); backdrop-filter: blur(3px); }
+    .modal h2 { font-size: 1.8rem; }
+    .modal .sub { margin-bottom: 24px; font-size: .95rem; }
+    .close {
+      position: absolute; top: 12px; right: 16px; background: none; border: 0;
+      color: var(--muted); font-size: 1.8rem; line-height: 1; cursor: pointer;
+    }
+    .close:hover { color: var(--gold-light); }
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block; margin-bottom: 6px; color: var(--gold);
+      font-size: .72rem; font-weight: 500; text-transform: uppercase; letter-spacing: .2em;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 12px 14px; background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); font: inherit; font-size: 1rem;
+      transition: border-color .3s;
+    }
+    .field textarea { min-height: 130px; resize: vertical; }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); }
+    .hp { position: absolute; left: -9999px; }
+    .modal .btn { width: 100%; cursor: pointer; font-family: inherit; }
+    .note { margin-top: 14px; color: var(--muted); font-size: .8rem; text-align: center; }
+
     footer {
       padding: 40px 0 60px; color: var(--muted); font-size: .8rem;
       text-align: center; letter-spacing: .15em; text-transform: uppercase;
@@ -131,7 +164,7 @@
       <a class="logo" href="#">K.Y.</a>
       <ul>
         <li><a class="link" href="#projects">Projects</a></li>
-        <li><a class="link" href="#contact">Contact</a></li>
+        <li><a class="link" href="#contact" data-open-contact>Contact</a></li>
       </ul>
     </nav>
 
@@ -141,7 +174,7 @@
       <h1><em>Kaan Yücel</em></h1>
       <p class="intro">I build websites, tools and AI-powered applications. This is where I share what I've made and what I'm learning.</p>
       <div class="links">
-        <a class="btn primary" href="mailto:kaan2008nl@hotmail.com">Contact me</a>
+        <a class="btn primary" href="#contact" data-open-contact>Contact me</a>
         <a class="btn" href="https://github.com/ky0806" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/kaan-y%C3%BCcel-961430445/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
@@ -179,9 +212,72 @@
       <h2>Let's work together</h2>
       <p class="sub" style="margin-bottom:0">Have a project or opportunity in mind? Get in touch.</p>
       <a class="mail" href="mailto:kaan2008nl@hotmail.com">kaan2008nl@hotmail.com</a>
+      <div><button type="button" class="btn primary" data-open-contact>Send a message</button></div>
     </section>
 
     <footer>© 2026 Kaan Yücel</footer>
   </div>
+
+  <dialog class="modal" id="contact-modal" aria-labelledby="contact-title">
+    <button type="button" class="close" aria-label="Close" data-close-contact>&times;</button>
+    <h2 id="contact-title">Contact me</h2>
+    <p class="sub">Fill in the form and your email app will open with the message ready to send.</p>
+    <form id="contact-form">
+      <div class="field">
+        <label for="c-name">Name</label>
+        <input id="c-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="c-email">Email</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="c-subject">Subject</label>
+        <select id="c-subject" name="subject">
+          <option>General question</option>
+          <option>Project / collaboration</option>
+          <option>Job opportunity</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="c-message">Message</label>
+        <textarea id="c-message" name="message" required></textarea>
+      </div>
+      <div class="field hp" aria-hidden="true">
+        <label for="c-website">Leave this empty</label>
+        <input id="c-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit" class="btn primary">Send message</button>
+      <p class="note">I'll get back to you as soon as I can.</p>
+    </form>
+  </dialog>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('contact-modal');
+      var form = document.getElementById('contact-form');
+      var TO = 'kaan2008nl@hotmail.com';
+
+      document.querySelectorAll('[data-open-contact]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          modal.showModal();
+        });
+      });
+      modal.querySelector('[data-close-contact]').addEventListener('click', function () { modal.close(); });
+      modal.addEventListener('click', function (e) { if (e.target === modal) modal.close(); });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (form.website.value) return;
+        var subject = form.subject.value + ' — ' + form.name.value.trim();
+        var body = form.message.value.trim() + '\n\n—\n' + form.name.value.trim() + '\n' + form.email.value.trim();
+        window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        modal.close();
+        form.reset();
+      });
+    })();
+  </script>
 </body>
 </html>

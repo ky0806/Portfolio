@@ -3,7 +3,7 @@
 Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.app).
 
 ## Opzet
-- Eén statisch bestand: `index.html` (HTML + CSS inline, geen build-stap).
+- Eén statisch bestand: `index.html` (HTML + CSS + JS inline, geen build-stap, geen bibliotheken), plus `api/contact.js` en eventueel afbeeldingen in `images/`.
 - Hosting: Vercel (account ky0806), gekoppeld aan GitHub-repo ky0806/Portfolio, branch `main`.
 - Elke `git push` naar `main` zet de site automatisch live.
 - Domein kaanyucel.nl via TransIP (DNS: A-record @ → Vercel, CNAME www → Vercel; www redirect 308 naar kaanyucel.nl).
@@ -28,6 +28,20 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - Alleen een klik op EN wordt bewaard in `localStorage` (sleutel `lang`, met try/catch). Een klein script in de `<head>` verbergt de pagina kort (`i18n-pending`) voor wie eerder EN koos, zodat er geen flits van Nederlands is.
 - Namen, GitHub, LinkedIn en tech-tags (HTML, Python, ...) worden niet vertaald.
 
+## Projecten toevoegen
+- Alle projecten staan in de lijst `projects` bovenaan het script onderaan `index.html`. De kaarten worden daaruit gebouwd; een project toevoegen of aanpassen = alleen die lijst wijzigen.
+- Velden per project: `title` en `description` (gewone tekst, of `{ nl: '...', en: '...' }` voor beide talen), `tags` (technieken als labels), `demo` (link live demo), `code` (link GitHub), `image` (pad naar screenshot).
+- Een leeg `demo` of `code` laat die knop weg. Een leeg `image` toont een placeholder in zwart/goud met het projectnummer.
+- Screenshot: bijvoorbeeld `images/project-1.jpg`, verhouding 16:10, ca. 1200×750 px, liefst onder 200 KB. Zet de bestanden in de map `images/` en zet het pad in `image`.
+- De labels "Live demo" en "Code" staan in `translations` (`projects.demo`, `projects.code`).
+- De drie huidige projecten zijn placeholders (de links van project 1 en 2 zijn voorbeeldwaarden en moeten nog vervangen worden).
+
+## Profielfoto en klokje
+- Profielfoto: zet je foto op `images/profile.jpg`. Vierkant, 400×400 px, gezicht in het midden (wordt rond bijgesneden en getoond op ca. 38 px), liefst onder 100 KB. Tot er een foto staat toont de site een gouden silhouet.
+- Klokje in de hero: toont "Weert, NL" met de tijd in Europe/Amsterdam en werkt elke minuut bij (script onderaan, `tick`). De plaatsnaam staat in de HTML (`.clock`).
+- Navigatie is sticky (`.site-nav`): foto + K.Y. links, rechts Projecten (verborgen onder 520 px), de Contact-knop en de taalswitch.
+- Openingszin onder de naam: `hero.statement` in `translations`. Let op het onzichtbare "word joiner"-teken in "AI-⁠toepassing", dat voorkomt een regelafbreking na het streepje.
+
 ## Stijl
 - Luxe uitstraling: warm zwart (#0e0c0a) met champagne-goud (#c9a96e / #e2c99a) en ivoor tekst.
 - Fonts (Google Fonts): Cormorant Garamond voor de naam (h1, goud cursief), Playfair Display voor koppen, Jost voor lopende tekst. Geen Inter of Times New Roman.
@@ -37,7 +51,7 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - Email: kaan2008nl@hotmail.com
 - GitHub: https://github.com/ky0806
 - LinkedIn: https://www.linkedin.com/in/kaan-y%C3%BCcel-961430445/
-- Projectkaarten zijn nog placeholders.
+- Projectkaarten zijn nog placeholders (zie "Projecten toevoegen").
 
 ## Werkwijze
 - Kaan werkt op een Mac; geef terminalcommando's voor macOS.

@@ -31,6 +31,7 @@
       --gold: #c9a96e;
       --gold-light: #e2c99a;
       --border: #2d261e;
+      --nav-h: 72px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -44,23 +45,35 @@
       letter-spacing: .01em;
     }
     .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    a:focus-visible, button:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
 
-    nav {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 32px 0;
+    /* ---------- Navigatie (sticky) ---------- */
+    .site-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(14, 12, 10, .88);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent; transition: border-color .3s;
     }
+    .site-nav.scrolled { border-bottom-color: var(--border); }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .avatar {
+      position: relative; width: 38px; height: 38px; flex: none; overflow: hidden;
+      border-radius: 50%; border: 1px solid var(--gold);
+      background: radial-gradient(circle at 30% 25%, #2a2218, var(--card));
+    }
+    .avatar svg { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--gold); opacity: .8; }
+    .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .logo {
-      font-family: 'Playfair Display', serif; font-size: 1.4rem;
-      color: var(--gold); text-decoration: none; letter-spacing: .02em;
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      color: var(--gold); letter-spacing: .02em;
     }
-    .nav-right { display: flex; align-items: center; gap: 28px; }
-    nav ul { list-style: none; display: flex; gap: 28px; }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
     nav a.link {
-      color: var(--muted); text-decoration: none; font-size: .85rem;
+      color: var(--muted); text-decoration: none; font-size: .82rem;
       text-transform: uppercase; letter-spacing: .18em; transition: color .3s;
     }
     nav a.link:hover { color: var(--gold-light); }
-    nav a:focus-visible, .lang button:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
 
     .lang { display: none; align-items: center; gap: 4px; font-size: .78rem; letter-spacing: .14em; }
     .js .lang { display: flex; }
@@ -73,7 +86,19 @@
     .lang button[aria-pressed="true"] { color: var(--gold); font-weight: 500; }
     .lang .sep { color: var(--muted); opacity: .4; }
 
-    header { padding: 90px 0 100px; }
+    /* ---------- Hero ---------- */
+    header { padding: 64px 0 100px; }
+    .clock {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 26px;
+      color: var(--muted); font-size: .74rem; text-transform: uppercase; letter-spacing: .2em;
+    }
+    .clock[hidden] { display: none; }
+    .clock .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    .clock time { color: var(--gold-light); font-variant-numeric: tabular-nums; }
+    @keyframes pulse { 50% { opacity: .3; } }
     .tag {
       color: var(--gold); font-size: .8rem; font-weight: 500;
       text-transform: uppercase; letter-spacing: .3em;
@@ -81,12 +106,16 @@
     .line { width: 60px; height: 1px; background: var(--gold); margin: 22px 0; }
     h1 {
       font-family: 'Cormorant Garamond', serif; font-weight: 500;
-      font-size: clamp(3.4rem, 10vw, 6.5rem); line-height: 1; margin-bottom: 30px;
+      font-size: clamp(3.4rem, 10vw, 6.5rem); line-height: 1; margin-bottom: 26px;
       letter-spacing: .01em;
     }
     h1 em { color: var(--gold-light); font-style: italic; }
-    .intro { color: var(--muted); font-size: 1.15rem; max-width: 580px; }
-    .links { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .statement {
+      font-family: 'Playfair Display', serif; font-weight: 500;
+      font-size: clamp(1.7rem, 4.6vw, 2.9rem); line-height: 1.2;
+      max-width: 18em; letter-spacing: 0;
+    }
+    .links { margin-top: 44px; display: flex; gap: 14px; flex-wrap: wrap; }
     .btn {
       display: inline-block; padding: 13px 28px;
       border: 1px solid var(--gold); color: var(--gold-light);
@@ -97,38 +126,59 @@
     .btn:hover { background: var(--gold); color: var(--bg); }
     .btn.primary { background: var(--gold); color: var(--bg); }
     .btn.primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .btn-sm { padding: 8px 18px; font-size: .72rem; letter-spacing: .16em; }
 
-    section { padding: 80px 0; border-top: 1px solid var(--border); }
+    /* ---------- Secties ---------- */
+    section { padding: 80px 0; border-top: 1px solid var(--border); scroll-margin-top: calc(var(--nav-h) - 1px); }
     h2 {
       font-family: 'Playfair Display', serif; font-weight: 500;
       font-size: 2.2rem; margin-bottom: 8px;
     }
     .sub { color: var(--muted); margin-bottom: 40px; }
+
+    /* ---------- Projectkaarten ---------- */
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
     .card {
+      display: flex; flex-direction: column; overflow: hidden;
       background: var(--card); border: 1px solid var(--border);
-      padding: 32px 28px; transition: border-color .4s, transform .4s;
+      transition: border-color .4s, transform .4s, box-shadow .4s;
     }
-    .card:hover { border-color: var(--gold); transform: translateY(-4px); }
-    .num { font-family: 'Playfair Display', serif; color: var(--gold); font-size: .95rem; font-style: italic; }
+    .card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0, 0, 0, .35); }
+    .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--bg-soft); }
+    .shot img, .ph { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform .7s ease; }
+    .shot img { object-fit: cover; display: block; }
+    .ph {
+      display: flex; align-items: center; justify-content: center;
+      background:
+        repeating-linear-gradient(45deg, rgba(201, 169, 110, .045) 0 1px, transparent 1px 14px),
+        radial-gradient(ellipse at 28% 18%, rgba(201, 169, 110, .2), transparent 62%),
+        linear-gradient(135deg, #1d1813, #0e0c0a);
+    }
+    .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(201, 169, 110, .28); }
+    .ph span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem; color: var(--gold); opacity: .55; }
+    .card:hover .shot img, .card:hover .ph { transform: scale(1.05); }
+    .card-body { display: flex; flex-direction: column; flex: 1; padding: 24px 26px 26px; }
     .card h3 {
       font-family: 'Playfair Display', serif; font-weight: 500;
-      font-size: 1.35rem; margin: 10px 0 12px;
+      font-size: 1.35rem; margin-bottom: 8px;
     }
     .card p { color: var(--muted); font-size: .95rem; }
-    .stack { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .stack { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
     .stack span {
-      font-size: .72rem; padding: 4px 10px;
+      font-size: .7rem; padding: 4px 10px;
       border: 1px solid var(--border); color: var(--gold-light);
       text-transform: uppercase; letter-spacing: .12em;
     }
-    .card a {
-      display: inline-block; margin-top: 20px; color: var(--gold);
-      text-decoration: none; font-size: .8rem;
+    .card-links { margin-top: auto; padding-top: 22px; display: flex; gap: 22px; flex-wrap: wrap; }
+    .card-links a {
+      color: var(--gold); text-decoration: none; font-size: .78rem;
       text-transform: uppercase; letter-spacing: .2em;
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
+      transition: color .3s, border-color .3s;
     }
-    .card a:hover { color: var(--gold-light); }
+    .card-links a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
 
+    /* ---------- Contact ---------- */
     .contact { text-align: center; }
     .contact h2 { font-size: clamp(2rem, 5vw, 3rem); }
     .contact-form {
@@ -166,43 +216,61 @@
     }
 
     @media (max-width: 600px) {
-      .nav-right { gap: 14px; }
-      nav ul { gap: 14px; }
+      :root { --nav-h: 64px; }
+      .nav-right { gap: 12px; }
       nav a.link { font-size: .72rem; letter-spacing: .12em; }
       .lang { font-size: .72rem; letter-spacing: .1em; }
-      header { padding: 50px 0 70px; }
+      header { padding: 44px 0 70px; }
+      .card-body { padding: 22px 22px 24px; }
+    }
+    @media (max-width: 520px) {
+      .nav-projects { display: none; }
     }
     @media (max-width: 380px) {
       .wrap { padding: 0 16px; }
-      .nav-right, nav ul { gap: 10px; }
-      nav a.link { font-size: .66rem; letter-spacing: .08em; }
+      .brand { gap: 8px; }
+      .logo { font-size: 1.15rem; }
+      .nav-right { gap: 8px; }
+      .btn-sm { padding: 7px 12px; font-size: .66rem; letter-spacing: .1em; }
       .lang { font-size: .66rem; }
       .contact-form { padding: 28px 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <nav>
-      <a class="logo" href="#">K.Y.</a>
+  <nav class="site-nav" id="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#" aria-label="Kaan Yücel">
+        <!-- Profielfoto: zet je eigen foto op images/profile.jpg (vierkant, 400×400 px). Tot dan zie je dit silhouet. -->
+        <span class="avatar">
+          <svg viewBox="0 0 38 38" fill="currentColor" aria-hidden="true"><circle cx="19" cy="14.5" r="6.5"/><path d="M6 38c0-8 5.8-12.5 13-12.5S32 30 32 38z"/></svg>
+          <img src="images/profile.jpg" alt="" width="38" height="38" onerror="this.remove()">
+        </span>
+        <span class="logo">K.Y.</span>
+      </a>
       <div class="nav-right">
-        <ul>
-          <li><a class="link" href="#projects" data-i18n="nav.projects">Projecten</a></li>
-          <li><a class="link" href="#contact" data-i18n="nav.contact">Contact</a></li>
-        </ul>
+        <a class="link nav-projects" href="#projects" data-i18n="nav.projects">Projecten</a>
+        <a class="btn btn-sm" href="#contact" data-i18n="nav.contact">Contact</a>
         <div class="lang" role="group" aria-label="Taal / Language">
           <button type="button" data-lang="nl" lang="nl" aria-pressed="true" aria-label="Nederlands">NL</button>
           <span class="sep" aria-hidden="true">|</span>
           <button type="button" data-lang="en" lang="en" aria-pressed="false" aria-label="English">EN</button>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
+  <div class="wrap">
     <header>
+      <div class="clock"><span class="dot" aria-hidden="true"></span><span>Weert, NL</span><span aria-hidden="true">·</span><time id="clock">--:--</time></div>
       <div class="tag" data-i18n="hero.tag">AI Engineer in wording</div>
       <div class="line"></div>
       <h1><em>Kaan Yücel</em></h1>
-      <p class="intro" data-i18n="hero.intro">Ik bouw websites, tools en AI-toepassingen. Hier deel ik wat ik heb gemaakt en wat ik aan het leren ben.</p>
+      <p class="statement" data-i18n="hero.statement">Van idee naar werkende AI-⁠toepassing.</p>
       <div class="links">
         <a class="btn primary" href="#contact" data-i18n="hero.contact">Neem contact op</a>
         <a class="btn" href="https://github.com/ky0806" target="_blank" rel="noopener">GitHub</a>
@@ -213,29 +281,7 @@
     <section id="projects">
       <h2 data-i18n="projects.title">Uitgelicht werk</h2>
       <p class="sub" data-i18n="projects.sub">Een greep uit wat ik heb gebouwd.</p>
-      <div class="grid">
-        <div class="card">
-          <div class="num">01</div>
-          <h3 data-i18n="projects.p1.title">Project één</h3>
-          <p data-i18n="projects.p1.text">Korte beschrijving: het probleem, wat je hebt gebouwd en het resultaat.</p>
-          <div class="stack"><span>HTML</span><span>JavaScript</span></div>
-          <a href="#" data-i18n="projects.view">Bekijk project →</a>
-        </div>
-        <div class="card">
-          <div class="num">02</div>
-          <h3 data-i18n="projects.p2.title">Project twee</h3>
-          <p data-i18n="projects.p2.text">Korte beschrijving: het probleem, wat je hebt gebouwd en het resultaat.</p>
-          <div class="stack"><span>Python</span><span>LLM</span></div>
-          <a href="#" data-i18n="projects.view">Bekijk project →</a>
-        </div>
-        <div class="card">
-          <div class="num">03</div>
-          <h3 data-i18n="projects.p3.title">Project drie</h3>
-          <p data-i18n="projects.p3.text">Korte beschrijving: het probleem, wat je hebt gebouwd en het resultaat.</p>
-          <div class="stack"><span>Supabase</span><span>Vercel</span></div>
-          <a href="#" data-i18n="projects.view">Bekijk project →</a>
-        </div>
-      </div>
+      <div class="grid" id="projects-grid"></div>
     </section>
 
     <section id="contact" class="contact">
@@ -269,7 +315,51 @@
 
   <script>
     // ---------------------------------------------------------------
-    // Vertalingen. Voeg een tekst toe door dezelfde sleutel in nl én en
+    // PROJECTEN. Een project toevoegen = een blok in deze lijst erbij zetten.
+    //   title, description : tekst, of { nl: '...', en: '...' } voor beide talen
+    //   tags               : technieken die als labels getoond worden
+    //   demo, code         : link naar live demo / GitHub. Leeg laten = knop wordt niet getoond
+    //   image              : pad naar een screenshot, bijvoorbeeld 'images/project-1.jpg'
+    //                        (16:10, ca. 1200×750 px). Leeg = stijlvolle placeholder
+    // ---------------------------------------------------------------
+    var projects = [
+      {
+        title: { nl: 'Project één', en: 'Project one' },
+        description: {
+          nl: 'Eén korte regel over wat dit project doet of oplevert.',
+          en: 'One short line about what this project does or delivers.'
+        },
+        tags: ['HTML', 'JavaScript'],
+        demo: '#',
+        code: 'https://github.com/ky0806',
+        image: ''
+      },
+      {
+        title: { nl: 'Project twee', en: 'Project two' },
+        description: {
+          nl: 'Eén korte regel over wat dit project doet of oplevert.',
+          en: 'One short line about what this project does or delivers.'
+        },
+        tags: ['Python', 'LLM'],
+        demo: '',
+        code: 'https://github.com/ky0806',
+        image: ''
+      },
+      {
+        title: { nl: 'Project drie', en: 'Project three' },
+        description: {
+          nl: 'Eén korte regel over wat dit project doet of oplevert.',
+          en: 'One short line about what this project does or delivers.'
+        },
+        tags: ['Supabase', 'Vercel'],
+        demo: '',
+        code: '',
+        image: ''
+      }
+    ];
+
+    // ---------------------------------------------------------------
+    // VERTALINGEN. Voeg een tekst toe door dezelfde sleutel in nl én en
     // te zetten en data-i18n="sleutel" op het HTML-element te zetten
     // (data-i18n-placeholder="sleutel" voor een placeholder).
     // ---------------------------------------------------------------
@@ -282,18 +372,13 @@
         'nav.contact': 'Contact',
 
         'hero.tag': 'AI Engineer in wording',
-        'hero.intro': 'Ik bouw websites, tools en AI-toepassingen. Hier deel ik wat ik heb gemaakt en wat ik aan het leren ben.',
+        'hero.statement': 'Van idee naar werkende AI-⁠toepassing.',
         'hero.contact': 'Neem contact op',
 
         'projects.title': 'Uitgelicht werk',
         'projects.sub': 'Een greep uit wat ik heb gebouwd.',
-        'projects.view': 'Bekijk project →',
-        'projects.p1.title': 'Project één',
-        'projects.p1.text': 'Korte beschrijving: het probleem, wat je hebt gebouwd en het resultaat.',
-        'projects.p2.title': 'Project twee',
-        'projects.p2.text': 'Korte beschrijving: het probleem, wat je hebt gebouwd en het resultaat.',
-        'projects.p3.title': 'Project drie',
-        'projects.p3.text': 'Korte beschrijving: het probleem, wat je hebt gebouwd en het resultaat.',
+        'projects.demo': 'Live demo',
+        'projects.code': 'Code',
 
         'contact.title': 'Laten we samenwerken',
         'contact.sub': 'Heb je een project of kans in gedachten? Stuur me gerust een bericht.',
@@ -323,18 +408,13 @@
         'nav.contact': 'Contact',
 
         'hero.tag': 'AI Engineer in the making',
-        'hero.intro': 'I build websites, tools and AI-powered applications. This is where I share what I\'ve made and what I\'m learning.',
+        'hero.statement': 'From idea to working AI application.',
         'hero.contact': 'Contact me',
 
         'projects.title': 'Selected work',
         'projects.sub': 'A few things I\'ve built.',
-        'projects.view': 'View project →',
-        'projects.p1.title': 'Project one',
-        'projects.p1.text': 'Short description: the problem, what you built and the result.',
-        'projects.p2.title': 'Project two',
-        'projects.p2.text': 'Short description: the problem, what you built and the result.',
-        'projects.p3.title': 'Project three',
-        'projects.p3.text': 'Short description: the problem, what you built and the result.',
+        'projects.demo': 'Live demo',
+        'projects.code': 'Code',
 
         'contact.title': 'Let\'s work together',
         'contact.sub': 'Have a project or opportunity in mind? Get in touch.',
@@ -367,6 +447,7 @@
       var form = document.getElementById('contact-form');
       var button = form.querySelector('button[type="submit"]');
       var status = document.getElementById('form-status');
+      var grid = document.getElementById('projects-grid');
       var sending = false;
       var lastStatus = null; // { kind, key }; zo wordt de melding mee vertaald bij een taalwissel
       var ERROR_KEYS = { missing_fields: 'form.err.missing', too_long: 'form.err.long', invalid_email: 'form.err.email' };
@@ -376,6 +457,67 @@
         if (own && own[key] !== undefined) return own[key];
         var fallback = translations[DEFAULT_LANG][key];
         return fallback !== undefined ? fallback : key;
+      }
+
+      // Tekst uit een project: gewone tekst, of { nl, en }.
+      function pick(value) {
+        if (value && typeof value === 'object') return value[lang] !== undefined ? value[lang] : value[DEFAULT_LANG];
+        return value;
+      }
+
+      function make(tag, className, text) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      }
+
+      function link(href, label) {
+        var a = make('a', '', label);
+        a.href = href;
+        if (href.charAt(0) !== '#') { a.target = '_blank'; a.rel = 'noopener'; }
+        return a;
+      }
+
+      function renderProjects() {
+        grid.textContent = '';
+        projects.forEach(function (project, i) {
+          var title = pick(project.title);
+          var card = make('article', 'card');
+
+          var shot = make('div', 'shot');
+          if (project.image) {
+            var img = make('img');
+            img.src = project.image;
+            img.alt = title;
+            img.loading = 'lazy';
+            shot.appendChild(img);
+          } else {
+            var ph = make('div', 'ph');
+            ph.setAttribute('aria-hidden', 'true');
+            ph.appendChild(make('span', '', ('0' + (i + 1)).slice(-2)));
+            shot.appendChild(ph);
+          }
+          card.appendChild(shot);
+
+          var body = make('div', 'card-body');
+          body.appendChild(make('h3', '', title));
+          body.appendChild(make('p', '', pick(project.description)));
+
+          var stack = make('div', 'stack');
+          (project.tags || []).forEach(function (tag) { stack.appendChild(make('span', '', tag)); });
+          body.appendChild(stack);
+
+          if (project.demo || project.code) {
+            var links = make('div', 'card-links');
+            if (project.demo) links.appendChild(link(project.demo, t('projects.demo') + ' ↗'));
+            if (project.code) links.appendChild(link(project.code, t('projects.code') + ' ↗'));
+            body.appendChild(links);
+          }
+
+          card.appendChild(body);
+          grid.appendChild(card);
+        });
       }
 
       function show(kind, key) {
@@ -397,6 +539,7 @@
         document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
           el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
         });
+        renderProjects();
         if (sending) button.textContent = t('form.sending');
         if (lastStatus) show(lastStatus.kind, lastStatus.key);
 
@@ -448,6 +591,24 @@
             button.textContent = t('form.send');
           });
       });
+
+      // Klokje: tijd in Weert (Europe/Amsterdam), elke minuut bijgewerkt op de minuutwisseling.
+      var clock = document.getElementById('clock');
+      var timeFormat = null;
+      try {
+        timeFormat = new Intl.DateTimeFormat('nl-NL', { timeZone: 'Europe/Amsterdam', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+      } catch (e) {}
+      function tick() {
+        clock.textContent = timeFormat.format(new Date());
+        setTimeout(tick, 60000 - (Date.now() % 60000) + 50);
+      }
+      if (timeFormat) tick(); else clock.parentNode.hidden = true;
+
+      // Dunne lijn onder de vaste navigatie zodra er gescrold is.
+      var nav = document.getElementById('site-nav');
+      function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 8); }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
 
       // Standaard Nederlands, ongeacht de browsertaal. Alleen een eerdere EN-keuze van de bezoeker telt.
       var saved = null;

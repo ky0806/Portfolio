@@ -97,6 +97,12 @@
     .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-live); flex: none; }
     .clock time { color: var(--color-live-text); font-variant-numeric: tabular-nums; }
     .nav-right { display: flex; align-items: center; gap: 22px; }
+    .nav-mail {
+      color: var(--color-muted-foreground); text-decoration: none;
+      font-family: var(--font-ui); font-size: .92rem; font-weight: 500; letter-spacing: .02em;
+    }
+    .nav-mail:hover { color: var(--color-primary); }
+    @media (max-width: 960px) { .nav-mail { display: none; } }
     .nav-link {
       color: var(--color-muted-foreground); text-decoration: none;
       font-family: var(--font-ui); font-size: .92rem; font-weight: 500; letter-spacing: .02em;
@@ -344,6 +350,7 @@
   <nav class="site-nav" id="site-nav">
     <div class="wrap nav-inner">
       <div class="clock"><span class="dot" aria-hidden="true"></span><span>Weert, NL</span><span class="sep" aria-hidden="true">·</span><time id="clock">--:--</time></div>
+      <a class="nav-mail" href="mailto:kaan@finsera.nl">kaan@finsera.nl</a>
       <div class="nav-right">
         <a class="nav-link nav-projects" href="#projects" data-i18n="nav.projects">Projecten</a>
         <a class="btn btn-sm primary" href="#contact" data-i18n="nav.contact">Contact</a>

@@ -18,7 +18,7 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
   - `RESEND_API_KEY`: API-sleutel uit het Resend-account.
   - `CONTACT_TO`: ontvanger van de berichten (kaanspam@outlook.com).
 - Met de testafzender `onboarding@resend.dev` mailt Resend alleen naar het adres van het Resend-account zelf. Voor andere ontvangers eerst het domein kaanyucel.nl verifiëren in Resend en de afzender aanpassen.
-- Het e-mailadres staat bewust niet zichtbaar in het contactblok; bezoekers gebruiken alleen het formulier.
+- In het contactblok staat bewust geen e-mailadres; bezoekers gebruiken daar alleen het formulier. Wel staat kaan@finsera.nl als `mailto:`-link in het midden van de navigatiebalk (`.nav-mail`, verborgen onder 960 px breed).
 - Meldingen aan bezoekers staan in `translations` (zie "Taal"). De API geeft bij fouten een `code` (`missing_fields`, `too_long`, `invalid_email`, `send_failed`, ...) en de pagina vertaalt die; de Engelse `error`-tekst uit de API wordt niet getoond. Het onderwerp van de mail aan Kaan is altijd Nederlands.
 - Lokaal testen kan met `vercel dev` (de `/api`-route werkt niet via een gewone statische server).
 
@@ -38,7 +38,7 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - De drie huidige projecten zijn placeholders (de links van project 1 en 2 zijn voorbeeldwaarden en moeten nog vervangen worden).
 
 ## Navigatie, klokje en animaties
-- Navigatie is sticky (`.site-nav`): links het klokje (Weert, NL, tijd in Europe/Amsterdam, elke minuut bijgewerkt), rechts Projecten (verborgen onder 520 px), de Contact-knop en de taalswitch. Geen logo of profielfoto.
+- Navigatie is sticky (`.site-nav`): links het klokje, in het midden het e-mailadres (mailto) (Weert, NL, tijd in Europe/Amsterdam, elke minuut bijgewerkt), rechts Projecten (verborgen onder 520 px), de Contact-knop en de taalswitch. Geen logo of profielfoto.
 - Tagline `hero.tag` ("Student · AI Engineer · Builder") en openingszin `hero.statement` staan in `translations`. In de zin scheidt `|` het gewone deel van het gekleurde deel; het onzichtbare "word joiner"-teken in "AI-⁠toepassing" voorkomt een regelafbreking na het streepje.
 - Animaties: alleen **Motion** (`vendor/motion.js`, globale `Motion`), met spring physics. Alle spring-instellingen staan in het object `spring` bovenaan het script (`default` 120/20/1, `hover` 300/25). Geen andere animatiebibliotheek, en alleen `transform` en `opacity` worden geanimeerd.
 - Bewegingen: hero-kop vliegt woord voor woord in, statistiekkaart telt op en kantelt max ±8° met de muis, zwevende vormen met parallax (`.shape`, `data-speed`), projectkaarten vliegen in (inView), veren bij hover en klappen verend uit tot een paneel (FLIP), tools-band loopt door en vertraagt verend bij hover (de tool onder de cursor wordt bovendien groter en kleurt in de accentkleur), tijdlijnlijn groeit mee met scrollen.
@@ -52,7 +52,8 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - Moet goed werken op mobiel (getest op 320, 375 en desktop).
 
 ## Inhoud
-- Email: kaan2008nl@hotmail.com
+- Email (zichtbaar op de site): kaan@finsera.nl
+- Email (oud, privé): kaan2008nl@hotmail.com
 - GitHub: https://github.com/ky0806
 - LinkedIn: https://www.linkedin.com/in/kaan-y%C3%BCcel-961430445/
 - Projectkaarten zijn nog placeholders (zie "Projecten toevoegen").

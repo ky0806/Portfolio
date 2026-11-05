@@ -52,26 +52,29 @@ Eén donker vlak (bijv. contactkaart of tools-band) mag `#1A0F17` met witte teks
 
 ## Lettertypes
 
+Robotisch, dun en strak (gekozen door Kaan na vergelijking met Sora + JetBrains Mono en Chakra Petch).
+
 | Rol | Font | Gewichten | Gebruik |
 |---|---|---|---|
-| Koppen, labels | **Space Grotesk** | 500, 700 | Strak, technisch, groot en zwaar |
-| Lopende tekst | **DM Sans** | 400, 500, 700 | Goed leesbaar |
-| Naam (signatuur, optioneel) | **Cormorant Garamond** | cursief 500 | Alleen "Kaan Yücel" |
+| Koppen | **Oxanium** | 300, 500 | Hoofdkop, sectiekoppen, kaarttitels |
+| Kleine UI-tekst en cijfers | **Share Tech Mono** | 400 | Klok, labels, knoppen, nav, tags, statistiekkaart, tijdlijnjaar |
+| Lopende tekst | **DM Sans** | 400, 500 | Alinea's, formuliertekst |
+| Naam (signatuur) | **Cormorant Garamond** | cursief 500 | Alleen "Kaan Yücel" |
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500&family=Share+Tech+Mono&family=DM+Sans:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 ```
 
 **Schaal**
 
-| Niveau | Grootte | Gewicht | Tracking | Regelhoogte |
-|---|---|---|---|---|
-| Display (hero-kop) | `clamp(2.75rem, 8vw, 6.5rem)` | 700 | -0.035em | 1.02 |
-| H2 (sectiekop) | `clamp(2rem, 5vw, 3.5rem)` | 700 | -0.025em | 1.08 |
-| H3 (kaarttitel) | `1.375rem` | 700 | -0.01em | 1.25 |
-| Body | `1.0625rem` (17px) | 400 | 0 | 1.65 |
-| Label | `.75rem` HOOFDLETTERS | 500 | .14em | 1.4 |
-| Cijfers (stats) | DM Sans, `tabular-nums` (Space Grotesk's "1" botst tegen het volgende cijfer) | 700 | -0.01em | 1 |
+| Niveau | Grootte | Gewicht | Tracking |
+|---|---|---|---|
+| Display (hero-kop) | `clamp(2.6rem, 7.4vw, 5.5rem)` | Oxanium 300 | -0.02em |
+| H2 (sectiekop) | `clamp(2rem, 5vw, 3.5rem)` | Oxanium 300 | -0.02em |
+| H3 (kaarttitel) | `1.45rem` | Oxanium 500 | 0 |
+| Body | `1.0625rem` | DM Sans 400 | 0 |
+| Label / knop / nav | `.74–.92rem` | Share Tech Mono 400 | .02–.14em (labels hoofdletters) |
+| Cijfers (stats) | `2.5rem` | Share Tech Mono 400, `tabular-nums` | 0 |
 
 ---
 

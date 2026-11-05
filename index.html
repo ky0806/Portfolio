@@ -20,7 +20,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500&family=Share+Tech+Mono&family=DM+Sans:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
   <style>
     /* Design system: design-system/kaan-yucel-portfolio/MASTER.md */
     :root {
@@ -51,7 +51,8 @@
       --color-knob: #FFFFFF;
       --color-knob-text: #58143B;
 
-      --font-display: 'Space Grotesk', sans-serif;
+      --font-display: 'Oxanium', sans-serif;
+      --font-ui: 'Share Tech Mono', ui-monospace, monospace;
       --font-body: 'DM Sans', sans-serif;
       --font-name: 'Cormorant Garamond', serif;
 
@@ -89,7 +90,7 @@
     .nav-inner { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); }
     .clock {
       display: flex; align-items: center; gap: 8px; white-space: nowrap;
-      font-family: var(--font-display); font-weight: 500; font-size: .72rem;
+      font-family: var(--font-ui); font-weight: 400; font-size: .74rem;
       text-transform: uppercase; letter-spacing: .14em; color: var(--color-muted-foreground);
     }
     .clock[hidden] { display: none; }
@@ -98,7 +99,7 @@
     .nav-right { display: flex; align-items: center; gap: 22px; }
     .nav-link {
       color: var(--color-muted-foreground); text-decoration: none;
-      font-size: .9rem; font-weight: 500;
+      font-family: var(--font-ui); font-size: .92rem; font-weight: 400; letter-spacing: .02em;
     }
     .nav-link:hover { color: var(--color-primary); }
     /* Taalschakelaar in iOS-stijl: de knop schuift verend naar NL of EN */
@@ -111,7 +112,7 @@
     .ls-fill { position: absolute; inset: 0; background: var(--color-primary); opacity: 0; }
     .ls-label {
       position: absolute; top: 0; bottom: 0; width: 32px; display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-weight: 700; font-size: .68rem; letter-spacing: .06em;
+      font-family: var(--font-ui); font-weight: 400; font-size: .72rem; letter-spacing: .06em;
     }
     .ls-nl { left: 0; }
     .ls-en { right: 0; }
@@ -121,14 +122,14 @@
       position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%;
       background: var(--color-knob); box-shadow: 0 2px 6px rgba(26, 15, 23, .25); will-change: transform;
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-weight: 700; font-size: .62rem; letter-spacing: .02em; color: var(--color-knob-text);
+      font-family: var(--font-ui); font-weight: 400; font-size: .68rem; letter-spacing: .02em; color: var(--color-knob-text);
     }
 
     /* ---------- Knoppen ---------- */
     .btn {
       display: inline-block; padding: 14px 28px; border-radius: var(--radius-pill);
       border: 1px solid var(--color-border); background: var(--color-card); color: var(--color-foreground);
-      font-family: var(--font-body); font-size: .95rem; font-weight: 500; text-decoration: none; cursor: pointer;
+      font-family: var(--font-ui); font-size: .92rem; font-weight: 400; letter-spacing: .02em; text-decoration: none; cursor: pointer;
     }
     .btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
     .btn.primary { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
@@ -144,13 +145,13 @@
     .s3 { width: clamp(110px, 15vw, 190px); aspect-ratio: 1; border: 1.5px solid var(--color-secondary); right: 8%; bottom: 6%; opacity: .7; }
     .hero-grid { position: relative; z-index: 1; display: grid; gap: 56px; align-items: center; }
     .label {
-      font-family: var(--font-display); font-weight: 500; font-size: .75rem;
+      font-family: var(--font-ui); font-weight: 400; font-size: .78rem;
       text-transform: uppercase; letter-spacing: .14em; color: var(--color-primary);
     }
     h1 { margin: 18px 0 0; font-weight: 400; }
     .statement {
-      display: block; font-family: var(--font-display); font-weight: 700;
-      font-size: clamp(2.6rem, 7.4vw, 5.5rem); line-height: 1.02; letter-spacing: -.035em;
+      display: block; font-family: var(--font-display); font-weight: 300;
+      font-size: clamp(2.6rem, 7.4vw, 5.5rem); line-height: 1.02; letter-spacing: -.02em;
       max-width: 11em;
     }
     .statement .w { display: inline-block; }
@@ -177,24 +178,24 @@
     }
     .stat-head {
       display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
-      font-family: var(--font-display); font-weight: 500; font-size: .72rem;
+      font-family: var(--font-ui); font-weight: 400; font-size: .74rem;
       text-transform: uppercase; letter-spacing: .14em; color: var(--color-muted-foreground);
     }
     .stat-head .live { display: inline-flex; align-items: center; gap: 7px; color: var(--color-live-text); }
     .stat-row { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-top: 1px solid var(--color-border); }
     .stat-row:first-of-type { border-top: 0; }
     .stat-num {
-      font-family: var(--font-body); font-weight: 700; font-size: 2.4rem; line-height: 1;
-      letter-spacing: -.01em; font-variant-numeric: tabular-nums; min-width: 2ch;
+      font-family: var(--font-ui); font-weight: 400; font-size: 2.5rem; line-height: 1;
+      letter-spacing: 0; font-variant-numeric: tabular-nums; min-width: 2ch;
     }
-    .stat-label { font-size: .88rem; color: var(--color-muted-foreground); line-height: 1.3; }
-    .stat-unit { display: block; color: var(--color-live-text); font-size: .78rem; }
+    .stat-label { font-family: var(--font-ui); font-size: .9rem; color: var(--color-muted-foreground); line-height: 1.3; }
+    .stat-unit { display: block; color: var(--color-live-text); font-size: .8rem; }
 
     /* ---------- Secties ---------- */
     section { padding: var(--section-y) 0 0; scroll-margin-top: calc(var(--nav-h) - 1px); }
     h2 {
-      font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.5rem);
-      line-height: 1.08; letter-spacing: -.025em; margin-bottom: 14px;
+      font-family: var(--font-display); font-weight: 300; font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.08; letter-spacing: -.02em; margin-bottom: 14px;
     }
     section:not(.contact) > h2 { margin-bottom: 40px; }
     .sub { color: var(--color-muted-foreground); margin-bottom: 48px; max-width: 34em; }
@@ -212,19 +213,19 @@
     .ph {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
       background: linear-gradient(135deg, var(--color-primary-soft), var(--color-ph-end));
-      font-family: var(--font-display); font-weight: 700; font-size: 3.2rem; color: var(--color-secondary);
+      font-family: var(--font-display); font-weight: 300; font-size: 3.2rem; color: var(--color-secondary);
     }
     .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(var(--rgb-primary), .18); border-radius: 12px; }
     .card-body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
-    .card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; line-height: 1.25; letter-spacing: -.01em; margin-bottom: 6px; }
+    .card h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.45rem; line-height: 1.25; letter-spacing: 0; margin-bottom: 6px; }
     .card p { color: var(--color-muted-foreground); font-size: .98rem; }
     .stack { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
     .stack span {
-      font-size: .78rem; font-weight: 500; padding: 3px 12px; border-radius: var(--radius-pill);
+      font-family: var(--font-ui); font-size: .8rem; font-weight: 400; letter-spacing: .02em; padding: 3px 12px; border-radius: var(--radius-pill);
       background: var(--color-primary-soft); color: var(--color-tag-text);
     }
     .card-links { margin-top: auto; padding-top: 22px; display: flex; gap: 22px; flex-wrap: wrap; }
-    .card-links a { color: var(--color-primary); text-decoration: none; font-weight: 500; font-size: .92rem; }
+    .card-links a { font-family: var(--font-ui); color: var(--color-primary); text-decoration: none; font-weight: 400; font-size: .92rem; letter-spacing: .02em; }
     .card-links a:hover { color: var(--color-primary-hover); text-decoration: underline; }
 
     /* Uitgeklapte projectkaart */
@@ -237,7 +238,7 @@
     }
     .pd-content { position: relative; }
     .pd-body { padding: 28px 32px 32px; }
-    .pd-body h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -.02em; line-height: 1.15; margin-bottom: 10px; }
+    .pd-body h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -.01em; line-height: 1.15; margin-bottom: 10px; }
     .pd-body p { color: var(--color-muted-foreground); }
     .pd-close {
       position: absolute; top: 14px; right: 14px; z-index: 2; width: 40px; height: 40px; border-radius: 50%;
@@ -257,7 +258,7 @@
     .track li {
       margin-right: 12px; padding: 12px 26px; border-radius: var(--radius-pill); white-space: nowrap;
       background: var(--color-card); border: 1px solid var(--color-border);
-      font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; will-change: transform;
+      font-family: var(--font-ui); font-weight: 400; font-size: 1rem; letter-spacing: .02em; will-change: transform;
     }
     @media (hover: hover) {
       .track li:hover { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
@@ -277,8 +278,8 @@
       background: var(--color-background); border: 2px solid var(--color-border);
     }
     .tl-item.on .tl-dot { border-color: var(--color-primary); background: var(--color-primary); box-shadow: 0 0 0 5px var(--color-primary-soft); }
-    .tl-year { font-family: var(--font-display); font-weight: 500; font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--color-primary); }
-    .tl-item h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -.015em; margin: 2px 0 4px; }
+    .tl-year { font-family: var(--font-ui); font-weight: 400; font-size: .84rem; text-transform: uppercase; letter-spacing: .14em; color: var(--color-primary); }
+    .tl-item h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.55rem; letter-spacing: 0; margin: 2px 0 4px; }
     .tl-item p { color: var(--color-muted-foreground); max-width: 34em; }
 
     /* ---------- Contact ---------- */
@@ -290,7 +291,7 @@
     }
     .field { margin-bottom: 18px; }
     .field label {
-      display: block; margin-bottom: 6px; font-family: var(--font-display); font-weight: 500; font-size: .75rem;
+      display: block; margin-bottom: 6px; font-family: var(--font-ui); font-weight: 400; font-size: .78rem;
       text-transform: uppercase; letter-spacing: .14em; color: var(--color-muted-foreground);
     }
     .field input, .field textarea {

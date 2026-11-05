@@ -8,7 +8,7 @@
 **Inspiration (alleen sfeer en bewegingen, geen teksten/logo's/beelden):** inspace.io/nl-nl
 
 **Afwijkingen van de gegenereerde uitkomst (bewust, door Kaan/project):**
-- Lettertype Inter vervangen door Space Grotesk + DM Sans (CLAUDE.md: geen Inter).
+- Lettertype Inter vervangen door Oxanium + Share Tech Mono + DM Sans (CLAUDE.md: geen Inter).
 - Paginapatroon "Product Demo + Features" vervangen door "Portfolio Grid" (uit `--domain landing`).
 - GSAP-motion vervangen door Motion (spring physics); geen andere animatie-libraries.
 - Achtergrond `#FAF5FF` (te roze-lavendel) vervangen door neutraal `#FAFAFC`; lavendel alleen voor vormen.
@@ -113,7 +113,7 @@ Container max 1100px, zijmarge 24px (16px onder 380px).
 
 **Primaire knop:** pil, `--color-primary` met witte tekst, padding 14px 28px, 600. **Secundair:** pil, 1px rand `--color-border`, tekst voorgrond; hover rand pruim.
 **Kaart:** wit, 1px rand, radius 20px, `--shadow-sm`; hover: veert 6px omhoog en `--shadow-lg`. Ruimte bovenin voor afbeelding (16:10); tot er een screenshot is een pruim-zachte placeholder met projectnummer.
-**Statistiekkaart:** label (hoofdletters, gedempt), groot cijfer (Space Grotesk), kleine live-stip + bijtekst. Alleen echte data.
+**Statistiekkaart:** label (hoofdletters, gedempt), groot cijfer (Share Tech Mono), kleine live-stip + bijtekst. Alleen echte data.
 **Tags:** pil, `--color-primary-soft` achtergrond, pruim tekst.
 **Inputs:** wit, rand `--color-border`, radius 12px; focus: pruimkleurige rand + ring 3px `rgba(88,20,59,.2)`. Labels altijd zichtbaar.
 **Nav:** sticky, wit/doorzichtig met blur, hairline onder bij scrollen.

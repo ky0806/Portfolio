@@ -37,6 +37,17 @@
       --color-live: #0891B2;
       --color-live-text: #0E7490;
       --color-destructive: #DC2626;
+      --rgb-primary: 124, 58, 237;
+      --color-nav-bg: rgba(250, 250, 252, .82);
+      --color-tag-text: #5B21B6;
+      --color-ph-end: #FFFFFF;
+      --color-close-bg: rgba(255, 255, 255, .92);
+      --color-backdrop: rgba(15, 13, 31, .5);
+      --color-err-bg: #FEF2F2;
+      --color-err-border: #FCA5A5;
+      --color-err-text: #B91C1C;
+      --color-knob: #FFFFFF;
+      --color-knob-text: #7C3AED;
 
       --font-display: 'Space Grotesk', sans-serif;
       --font-body: 'DM Sans', sans-serif;
@@ -47,7 +58,7 @@
       --radius-pill: 999px;
       --shadow-sm: 0 1px 2px rgba(15, 13, 31, .06);
       --shadow-md: 0 8px 24px rgba(15, 13, 31, .08);
-      --shadow-lg: 0 24px 48px rgba(124, 58, 237, .14);
+      --shadow-lg: 0 24px 48px rgba(var(--rgb-primary), .14);
 
       --nav-h: 72px;
       --section-y: clamp(96px, 14vw, 160px);
@@ -68,7 +79,7 @@
     /* ---------- Navigatie ---------- */
     .site-nav {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(250, 250, 252, .82);
+      background: var(--color-nav-bg);
       -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent;
     }
@@ -88,15 +99,28 @@
       font-size: .9rem; font-weight: 500;
     }
     .nav-link:hover { color: var(--color-primary); }
-    .lang { display: none; align-items: center; gap: 4px; font-family: var(--font-display); font-size: .78rem; letter-spacing: .1em; }
-    .js .lang { display: flex; }
-    .lang button {
-      background: none; border: 0; padding: 6px 4px; cursor: pointer;
-      font: inherit; letter-spacing: inherit; color: var(--color-muted-foreground);
+    /* Taalschakelaar in iOS-stijl: de knop schuift verend naar NL of EN */
+    .lang-switch { display: none; padding: 6px 0; background: none; border: 0; cursor: pointer; border-radius: var(--radius-pill); }
+    .js .lang-switch { display: block; }
+    .ls-track {
+      position: relative; display: block; width: 64px; height: 32px; border-radius: var(--radius-pill);
+      background: var(--color-border); overflow: hidden;
     }
-    .lang button:hover { color: var(--color-primary); }
-    .lang button[aria-pressed="true"] { color: var(--color-primary); font-weight: 700; }
-    .lang .sep { color: var(--color-border); }
+    .ls-fill { position: absolute; inset: 0; background: var(--color-primary); opacity: 0; }
+    .ls-label {
+      position: absolute; top: 0; bottom: 0; width: 32px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 700; font-size: .68rem; letter-spacing: .06em;
+    }
+    .ls-nl { left: 0; }
+    .ls-en { right: 0; }
+    .ls-label { color: var(--color-muted-foreground); }
+    .lang-switch.is-en .ls-label { color: var(--color-on-primary); }
+    .ls-knob {
+      position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--color-knob); box-shadow: 0 2px 6px rgba(15, 13, 31, .25); will-change: transform;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 700; font-size: .62rem; letter-spacing: .02em; color: var(--color-knob-text);
+    }
 
     /* ---------- Knoppen ---------- */
     .btn {
@@ -175,17 +199,17 @@
     .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .ph {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--color-primary-soft), #FFFFFF);
+      background: linear-gradient(135deg, var(--color-primary-soft), var(--color-ph-end));
       font-family: var(--font-display); font-weight: 700; font-size: 3.2rem; color: var(--color-secondary);
     }
-    .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(124, 58, 237, .18); border-radius: 12px; }
+    .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(var(--rgb-primary), .18); border-radius: 12px; }
     .card-body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
     .card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; line-height: 1.25; letter-spacing: -.01em; margin-bottom: 6px; }
     .card p { color: var(--color-muted-foreground); font-size: .98rem; }
     .stack { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
     .stack span {
       font-size: .78rem; font-weight: 500; padding: 3px 12px; border-radius: var(--radius-pill);
-      background: var(--color-primary-soft); color: #5B21B6;
+      background: var(--color-primary-soft); color: var(--color-tag-text);
     }
     .card-links { margin-top: auto; padding-top: 22px; display: flex; gap: 22px; flex-wrap: wrap; }
     .card-links a { color: var(--color-primary); text-decoration: none; font-weight: 500; font-size: .92rem; }
@@ -194,7 +218,7 @@
     /* Uitgeklapte projectkaart */
     .pd { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; }
     .pd[hidden] { display: none; }
-    .pd-backdrop { position: fixed; inset: 0; background: rgba(15, 13, 31, .5); }
+    .pd-backdrop { position: fixed; inset: 0; background: var(--color-backdrop); }
     .pd-panel {
       position: relative; width: min(720px, 100%); max-height: calc(100vh - 32px); overflow: auto; overscroll-behavior: contain;
       background: var(--color-card); border-radius: 24px; box-shadow: var(--shadow-lg); transform-origin: 0 0;
@@ -205,7 +229,7 @@
     .pd-body p { color: var(--color-muted-foreground); }
     .pd-close {
       position: absolute; top: 14px; right: 14px; z-index: 2; width: 40px; height: 40px; border-radius: 50%;
-      border: 1px solid var(--color-border); background: rgba(255, 255, 255, .92); color: var(--color-foreground);
+      border: 1px solid var(--color-border); background: var(--color-close-bg); color: var(--color-foreground);
       font-size: 1.4rem; line-height: 1; cursor: pointer;
     }
     .pd-close:hover { border-color: var(--color-primary); color: var(--color-primary); }
@@ -260,14 +284,14 @@
     }
     .field ::placeholder { color: var(--color-muted-foreground); opacity: .6; }
     .field textarea { min-height: 140px; resize: vertical; }
-    .field input:focus, .field textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(124, 58, 237, .2); }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(var(--rgb-primary), .2); }
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .contact-form .btn { width: 100%; }
     .contact-form .btn:disabled { opacity: .6; cursor: default; }
     .status { margin-top: 18px; padding: 14px 16px; font-size: .95rem; text-align: center; border-radius: var(--radius-input); border: 1px solid var(--color-border); }
     .status[hidden] { display: none; }
-    .status.ok { background: var(--color-primary-soft); border-color: var(--color-secondary); color: #5B21B6; }
-    .status.err { background: #FEF2F2; border-color: #FCA5A5; color: #B91C1C; }
+    .status.ok { background: var(--color-primary-soft); border-color: var(--color-secondary); color: var(--color-tag-text); }
+    .status.err { background: var(--color-err-bg); border-color: var(--color-err-border); color: var(--color-err-text); }
 
     footer {
       margin-top: var(--section-y); padding: 36px 0 56px; border-top: 1px solid var(--color-border);
@@ -281,7 +305,6 @@
       :root { --nav-h: 64px; }
       .nav-right { gap: 12px; }
       .clock { font-size: .66rem; letter-spacing: .1em; gap: 6px; }
-      .lang { font-size: .72rem; }
       .btn-sm { padding: 8px 16px; font-size: .8rem; }
       .hero-grid { gap: 40px; }
       .pd-body { padding: 24px 22px 26px; }
@@ -295,7 +318,6 @@
       .clock { font-size: .62rem; letter-spacing: .06em; gap: 5px; }
       .clock .sep { display: none; }
       .btn-sm { padding: 7px 12px; font-size: .75rem; }
-      .lang { font-size: .66rem; }
       .contact-form { padding: 28px 20px; }
     }
   </style>
@@ -307,11 +329,14 @@
       <div class="nav-right">
         <a class="nav-link nav-projects" href="#projects" data-i18n="nav.projects">Projecten</a>
         <a class="btn btn-sm primary" href="#contact" data-i18n="nav.contact">Contact</a>
-        <div class="lang" role="group" aria-label="Taal / Language">
-          <button type="button" data-lang="nl" lang="nl" aria-pressed="true" aria-label="Nederlands">NL</button>
-          <span class="sep" aria-hidden="true">|</span>
-          <button type="button" data-lang="en" lang="en" aria-pressed="false" aria-label="English">EN</button>
-        </div>
+        <button type="button" class="lang-switch" id="lang-switch" role="switch" aria-checked="false" aria-label="English" lang="en">
+          <span class="ls-track" aria-hidden="true">
+            <span class="ls-fill" id="ls-fill"></span>
+            <span class="ls-label ls-nl">NL</span>
+            <span class="ls-label ls-en">EN</span>
+            <span class="ls-knob" id="ls-knob">NL</span>
+          </span>
+        </button>
       </div>
     </div>
   </nav>
@@ -637,7 +662,10 @@
 
       // ---------- Taal ----------
       var metaDescription = document.querySelector('meta[name="description"]');
-      var switchButtons = document.querySelectorAll('.lang button');
+      var langSwitch = $('lang-switch');
+      var knob = $('ls-knob');
+      var knobX = 0; // huidige stand van de knop in px (0 = NL, 32 = EN)
+      var KNOB_TRAVEL = 32;
       var statementEl = $('statement');
       var statementSeen = false;
 
@@ -996,16 +1024,33 @@
         if (sending) button.textContent = t('form.sending');
         if (lastStatus) show(lastStatus.kind, lastStatus.key);
 
-        Array.prototype.forEach.call(switchButtons, function (b) {
-          b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
-        });
+        syncSwitch(shouldAnimateSwitch);
         if (persist) {
           try { localStorage.setItem('lang', lang); } catch (e) {}
         }
       }
 
-      Array.prototype.forEach.call(switchButtons, function (b) {
-        b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang'), true); });
+      // De schakelaar: uit = NL, aan = EN. De knop schuift verend; bij "minder beweging" springt hij direct.
+      var shouldAnimateSwitch = false;
+      function syncSwitch(animateIt) {
+        var en = lang === 'en';
+        var to = en ? KNOB_TRAVEL : 0;
+        langSwitch.setAttribute('aria-checked', en ? 'true' : 'false');
+        langSwitch.classList.toggle('is-en', en);
+        knob.textContent = en ? 'EN' : 'NL';
+        if (M && animateIt && !reduced()) {
+          animate(knob, { x: [knobX, to] }, spring.hover);
+          animate($('ls-fill'), { opacity: en ? 1 : 0 }, spring.hover);
+        } else {
+          knob.style.transform = 'translateX(' + to + 'px)';
+          $('ls-fill').style.opacity = en ? '1' : '0';
+        }
+        knobX = to;
+      }
+      langSwitch.addEventListener('click', function () {
+        shouldAnimateSwitch = true;
+        applyLang(lang === 'en' ? 'nl' : 'en', true);
+        shouldAnimateSwitch = false;
       });
 
       // ---------- Contactformulier ----------

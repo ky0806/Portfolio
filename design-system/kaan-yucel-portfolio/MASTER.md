@@ -8,7 +8,7 @@
 **Inspiration (alleen sfeer en bewegingen, geen teksten/logo's/beelden):** inspace.io/nl-nl
 
 **Afwijkingen van de gegenereerde uitkomst (bewust, door Kaan/project):**
-- Lettertype Inter vervangen door Oxanium + Share Tech Mono + DM Sans (CLAUDE.md: geen Inter).
+- Lettertype Inter vervangen door Space Grotesk (CLAUDE.md: geen Inter).
 - Paginapatroon "Product Demo + Features" vervangen door "Portfolio Grid" (uit `--domain landing`).
 - GSAP-motion vervangen door Motion (spring physics); geen andere animatie-libraries.
 - Achtergrond `#FAF5FF` (te roze-lavendel) vervangen door neutraal `#FAFAFC`; lavendel alleen voor vormen.
@@ -52,29 +52,29 @@ Eén donker vlak (bijv. contactkaart of tools-band) mag `#1A0F17` met witte teks
 
 ## Lettertypes
 
-Robotisch, dun en strak (gekozen door Kaan na vergelijking met Sora + JetBrains Mono en Chakra Petch).
+Strak, licht en niet robotisch. Voorbeeld van Kaan: een paragraaf in Space Grotesk (op een crème ruitjesachtergrond). Eerder geprobeerd en afgewezen als te robotisch: Oxanium + Share Tech Mono.
 
 | Rol | Font | Gewichten | Gebruik |
 |---|---|---|---|
-| Koppen | **Oxanium** | 300, 500 | Hoofdkop, sectiekoppen, kaarttitels |
-| Kleine UI-tekst en cijfers | **Share Tech Mono** | 400 | Klok, labels, knoppen, nav, tags, statistiekkaart, tijdlijnjaar |
-| Lopende tekst | **DM Sans** | 400, 500 | Alinea's, formuliertekst |
+| Koppen, UI-tekst, cijfers, alinea's | **Space Grotesk** | 300, 400, 500 | Alles behalve de naam |
 | Naam (signatuur) | **Cormorant Garamond** | cursief 500 | Alleen "Kaan Yücel" |
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500&family=Share+Tech+Mono&family=DM+Sans:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 ```
 
 **Schaal**
 
 | Niveau | Grootte | Gewicht | Tracking |
 |---|---|---|---|
-| Display (hero-kop) | `clamp(2.6rem, 7.4vw, 5.5rem)` | Oxanium 300 | -0.02em |
-| H2 (sectiekop) | `clamp(2rem, 5vw, 3.5rem)` | Oxanium 300 | -0.02em |
-| H3 (kaarttitel) | `1.45rem` | Oxanium 500 | 0 |
-| Body | `1.0625rem` | DM Sans 400 | 0 |
-| Label / knop / nav | `.74–.92rem` | Share Tech Mono 400 | .02–.14em (labels hoofdletters) |
-| Cijfers (stats) | `2.5rem` | Share Tech Mono 400, `tabular-nums` | 0 |
+| Display (hero-kop) | `clamp(2.6rem, 7.4vw, 5.5rem)` | 300 | -0.035em |
+| H2 (sectiekop) | `clamp(2rem, 5vw, 3.5rem)` | 300 | -0.03em |
+| H3 (kaarttitel) | `1.4rem` | 500 | -0.01em |
+| Body | `1.0625rem` | 400 | 0 |
+| Label / knop / nav | `.74–.95rem` | 500 | .02em (labels hoofdletters, .14em) |
+| Cijfers (stats) | `2.6rem`, `tabular-nums` | 300 | .02em |
+
+De "1" van Space Grotesk heeft een haakje (kenmerkend). Houd cijfers dun en met normale letterafstand.
 
 ---
 
@@ -113,7 +113,7 @@ Container max 1100px, zijmarge 24px (16px onder 380px).
 
 **Primaire knop:** pil, `--color-primary` met witte tekst, padding 14px 28px, 600. **Secundair:** pil, 1px rand `--color-border`, tekst voorgrond; hover rand pruim.
 **Kaart:** wit, 1px rand, radius 20px, `--shadow-sm`; hover: veert 6px omhoog en `--shadow-lg`. Ruimte bovenin voor afbeelding (16:10); tot er een screenshot is een pruim-zachte placeholder met projectnummer.
-**Statistiekkaart:** label (hoofdletters, gedempt), groot cijfer (Share Tech Mono), kleine live-stip + bijtekst. Alleen echte data.
+**Statistiekkaart:** label (hoofdletters, gedempt), groot cijfer (Space Grotesk 300), kleine live-stip + bijtekst. Alleen echte data.
 **Tags:** pil, `--color-primary-soft` achtergrond, pruim tekst.
 **Inputs:** wit, rand `--color-border`, radius 12px; focus: pruimkleurige rand + ring 3px `rgba(88,20,59,.2)`. Labels altijd zichtbaar.
 **Nav:** sticky, wit/doorzichtig met blur, hairline onder bij scrollen.

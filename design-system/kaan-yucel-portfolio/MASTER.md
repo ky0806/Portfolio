@@ -108,11 +108,11 @@ Container max 1100px, zijmarge 24px (16px onder 380px).
 
 ## Componenten
 
-**Primaire knop:** pil, `--color-primary` met witte tekst, padding 14px 28px, 600. **Secundair:** pil, 1px rand `--color-border`, tekst voorgrond; hover rand violet.
-**Kaart:** wit, 1px rand, radius 20px, `--shadow-sm`; hover: veert 6px omhoog en `--shadow-lg`. Ruimte bovenin voor afbeelding (16:10); tot er een screenshot is een violet-zachte placeholder met projectnummer.
+**Primaire knop:** pil, `--color-primary` met witte tekst, padding 14px 28px, 600. **Secundair:** pil, 1px rand `--color-border`, tekst voorgrond; hover rand pruim.
+**Kaart:** wit, 1px rand, radius 20px, `--shadow-sm`; hover: veert 6px omhoog en `--shadow-lg`. Ruimte bovenin voor afbeelding (16:10); tot er een screenshot is een pruim-zachte placeholder met projectnummer.
 **Statistiekkaart:** label (hoofdletters, gedempt), groot cijfer (Space Grotesk), kleine live-stip + bijtekst. Alleen echte data.
-**Tags:** pil, `--color-primary-soft` achtergrond, violet tekst.
-**Inputs:** wit, rand `--color-border`, radius 12px; focus: violette rand + ring 3px `rgba(124,58,237,.2)`. Labels altijd zichtbaar.
+**Tags:** pil, `--color-primary-soft` achtergrond, pruim tekst.
+**Inputs:** wit, rand `--color-border`, radius 12px; focus: pruimkleurige rand + ring 3px `rgba(88,20,59,.2)`. Labels altijd zichtbaar.
 **Nav:** sticky, wit/doorzichtig met blur, hairline onder bij scrollen.
 **Zwevende vormen:** maximaal 3 (cirkel, ring, blob) in `--color-secondary`/`--color-primary-soft`, achter de hero, `pointer-events: none`, `aria-hidden`.
 

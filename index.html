@@ -173,8 +173,8 @@
     .stat-row { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-top: 1px solid var(--color-border); }
     .stat-row:first-of-type { border-top: 0; }
     .stat-num {
-      font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; line-height: 1;
-      letter-spacing: -.02em; font-variant-numeric: tabular-nums; min-width: 2ch;
+      font-family: var(--font-body); font-weight: 700; font-size: 2.4rem; line-height: 1;
+      letter-spacing: -.01em; font-variant-numeric: tabular-nums; min-width: 2ch;
     }
     .stat-label { font-size: .88rem; color: var(--color-muted-foreground); line-height: 1.3; }
     .stat-unit { display: block; color: var(--color-live-text); font-size: .78rem; }
@@ -546,7 +546,6 @@
         'stats.update': 'Laatste update',
         'stats.daysAgo': 'dagen geleden',
         'stats.dayAgo': 'dag geleden',
-        'stats.today': 'vandaag',
 
         'projects.title': 'Uitgelicht werk',
         'projects.sub': 'Een greep uit wat ik heb gebouwd.',
@@ -594,7 +593,6 @@
         'stats.update': 'Last update',
         'stats.daysAgo': 'days ago',
         'stats.dayAgo': 'day ago',
-        'stats.today': 'today',
 
         'projects.title': 'Selected work',
         'projects.sub': 'A few things I\'ve built.',
@@ -963,8 +961,7 @@
           targets.forEach(function (pair) { show(pair[0], pair[1]); });
         }
         statsCounted = true;
-        if (stats.days === 0) { update.textContent = ''; unit.textContent = t('stats.today'); }
-        else unit.textContent = t(stats.days === 1 ? 'stats.dayAgo' : 'stats.daysAgo');
+        unit.textContent = t(stats.days === 1 ? 'stats.dayAgo' : 'stats.daysAgo');
       }
       function loadStats() {
         var base = 'https://api.github.com/users/' + GITHUB_USER;

@@ -48,7 +48,7 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 
 ## Stijl
 - Fris, modern, technisch en persoonlijk, licht met veel witruimte (zie het design system). Kleuren als CSS-variabelen bovenaan `index.html`: achtergrond #FAFAFC, tekst #0F0D1F, gedempt #5B5F70, rand #E7E5F0, accent violet #7C3AED, zacht violet #EDE9FE, cyaan (#0891B2) alleen voor live-stipjes.
-- Fonts (Google Fonts): Space Grotesk voor koppen/cijfers/labels, DM Sans voor lopende tekst, Cormorant Garamond cursief alleen voor de naam. Geen Inter of Times New Roman.
+- Fonts (Google Fonts): Space Grotesk voor koppen en labels, DM Sans voor lopende tekst en de statistiekcijfers (de "1" van Space Grotesk heeft een lange vlag en botst tegen het volgende cijfer), Cormorant Garamond cursief alleen voor de naam. Geen Inter of Times New Roman.
 - Moet goed werken op mobiel (getest op 320, 375 en desktop).
 
 ## Inhoud

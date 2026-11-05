@@ -51,7 +51,7 @@ Eén donker vlak (bijv. contactkaart of tools-band) mag `#0F0D1F` met witte teks
 
 | Rol | Font | Gewichten | Gebruik |
 |---|---|---|---|
-| Koppen, cijfers, labels | **Space Grotesk** | 500, 700 | Strak, technisch, groot en zwaar |
+| Koppen, labels | **Space Grotesk** | 500, 700 | Strak, technisch, groot en zwaar |
 | Lopende tekst | **DM Sans** | 400, 500, 700 | Goed leesbaar |
 | Naam (signatuur, optioneel) | **Cormorant Garamond** | cursief 500 | Alleen "Kaan Yücel" |
 
@@ -68,7 +68,7 @@ Eén donker vlak (bijv. contactkaart of tools-band) mag `#0F0D1F` met witte teks
 | H3 (kaarttitel) | `1.375rem` | 700 | -0.01em | 1.25 |
 | Body | `1.0625rem` (17px) | 400 | 0 | 1.65 |
 | Label | `.75rem` HOOFDLETTERS | 500 | .14em | 1.4 |
-| Cijfers (stats) | Space Grotesk, `tabular-nums` | 700 | -0.02em | 1 |
+| Cijfers (stats) | DM Sans, `tabular-nums` (Space Grotesk's "1" botst tegen het volgende cijfer) | 700 | -0.01em | 1 |
 
 ---
 

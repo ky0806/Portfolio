@@ -24,30 +24,32 @@
   <style>
     /* Design system: design-system/kaan-yucel-portfolio/MASTER.md */
     :root {
-      --color-background: #FAFAFC;
+      --color-background: #FBF8FA;
       --color-card: #FFFFFF;
-      --color-foreground: #0F0D1F;
-      --color-muted-foreground: #5B5F70;
-      --color-border: #E7E5F0;
-      --color-primary: #7C3AED;
-      --color-primary-hover: #6D28D9;
+      --color-foreground: #1A0F17;
+      --color-muted-foreground: #6A5F68;
+      --color-border: #EBDFE7;
+      --color-primary: #58143B;
+      --color-primary-hover: #70205B;
       --color-on-primary: #FFFFFF;
-      --color-primary-soft: #EDE9FE;
-      --color-secondary: #A78BFA;
+      --color-primary-soft: #F5E8F0;
+      --color-gradient-from: #58143B;
+      --color-gradient-to: #C0397E;
+      --color-secondary: #C27AA6;
       --color-live: #0891B2;
       --color-live-text: #0E7490;
       --color-destructive: #DC2626;
-      --rgb-primary: 124, 58, 237;
-      --color-nav-bg: rgba(250, 250, 252, .82);
-      --color-tag-text: #5B21B6;
+      --rgb-primary: 88, 20, 59;
+      --color-nav-bg: rgba(251, 248, 250, .82);
+      --color-tag-text: #58143B;
       --color-ph-end: #FFFFFF;
       --color-close-bg: rgba(255, 255, 255, .92);
-      --color-backdrop: rgba(15, 13, 31, .5);
+      --color-backdrop: rgba(26, 15, 23, .55);
       --color-err-bg: #FEF2F2;
       --color-err-border: #FCA5A5;
       --color-err-text: #B91C1C;
       --color-knob: #FFFFFF;
-      --color-knob-text: #7C3AED;
+      --color-knob-text: #58143B;
 
       --font-display: 'Space Grotesk', sans-serif;
       --font-body: 'DM Sans', sans-serif;
@@ -117,7 +119,7 @@
     .lang-switch.is-en .ls-label { color: var(--color-on-primary); }
     .ls-knob {
       position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%;
-      background: var(--color-knob); box-shadow: 0 2px 6px rgba(15, 13, 31, .25); will-change: transform;
+      background: var(--color-knob); box-shadow: 0 2px 6px rgba(26, 15, 23, .25); will-change: transform;
       display: flex; align-items: center; justify-content: center;
       font-family: var(--font-display); font-weight: 700; font-size: .62rem; letter-spacing: .02em; color: var(--color-knob-text);
     }
@@ -153,6 +155,15 @@
     }
     .statement .w { display: inline-block; }
     .statement .accent { color: var(--color-primary); }
+    /* Gradient over het gekleurde deel van de kop; het script zet per woord de juiste positie zodat het doorloopt */
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+      .statement .accent {
+        background-image: linear-gradient(90deg, var(--color-gradient-from), var(--color-gradient-to));
+        background-repeat: no-repeat; background-size: 100% 100%;
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; -webkit-text-fill-color: transparent;
+      }
+    }
     .name {
       display: block; margin-top: 18px; font-family: var(--font-name); font-style: italic; font-weight: 500;
       font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; color: var(--color-foreground);
@@ -692,6 +703,18 @@
         return a;
       }
 
+      // Laat de gradient over alle gekleurde woorden doorlopen (elk woord is een eigen blok).
+      function paintGradient() {
+        var accents = statementEl.querySelectorAll('.accent');
+        if (!accents.length) return;
+        var base = statementEl.getBoundingClientRect().left, width = 0;
+        Array.prototype.forEach.call(accents, function (w) { width = Math.max(width, w.getBoundingClientRect().right - base); });
+        Array.prototype.forEach.call(accents, function (w) {
+          w.style.backgroundSize = Math.ceil(width) + 'px 100%';
+          w.style.backgroundPosition = Math.round(base - w.getBoundingClientRect().left) + 'px 0';
+        });
+      }
+
       // ---------- Hero: kop die woord voor woord invliegt ----------
       function renderStatement() {
         var parts = t('hero.statement').split('|');
@@ -706,6 +729,7 @@
             words.push(span);
           });
         });
+        paintGradient();
         if (!M) return;
         words.forEach(function (w) { w.style.opacity = '0'; });
         var delay = statementSeen ? 0 : 0.1;
@@ -1120,7 +1144,8 @@
         updateTimeline();
       }
       if (M) M.scroll(onScroll); else window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
+      window.addEventListener('resize', function () { onScroll(); paintGradient(); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintGradient);
 
       // ---------- Hero: stat-kaart kantelt mee met de muis (max ±8°) ----------
       var statCard = $('stat-card');

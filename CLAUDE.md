@@ -47,7 +47,7 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - Tools-band: lijst `tools`. Tijdlijn: lijst `timeline` (tekst of `{ nl, en }`). Beide staan naast `projects` bovenaan het script.
 
 ## Stijl
-- Fris, modern, technisch en persoonlijk, licht met veel witruimte (zie het design system). Kleuren als CSS-variabelen bovenaan `index.html`: achtergrond #FAFAFC, tekst #0F0D1F, gedempt #5B5F70, rand #E7E5F0, accent violet #7C3AED, zacht violet #EDE9FE, cyaan (#0891B2) alleen voor live-stipjes.
+- Fris, modern, technisch en persoonlijk, licht met veel witruimte (zie het design system). Hoofdkleur is diep pruim/wijnrood #58143B (kleur uit een afbeelding van Kaan). Kleuren staan als CSS-variabelen bovenaan `index.html`: achtergrond #FBF8FA, tekst #1A0F17, gedempt #6A5F68, rand #EBDFE7, accent #58143B, hover #70205B, zacht #F5E8F0, vormen #C27AA6, cyaan (#0891B2) alleen voor live-stipjes. Het gekleurde deel van de hoofdkop (`.statement .accent`) heeft een gradient van #58143B naar #C0397E (`--color-gradient-from/to`); `paintGradient()` laat die over alle woorden doorlopen.
 - Fonts (Google Fonts): Space Grotesk voor koppen en labels, DM Sans voor lopende tekst en de statistiekcijfers (de "1" van Space Grotesk heeft een lange vlag en botst tegen het volgende cijfer), Cormorant Garamond cursief alleen voor de naam. Geen Inter of Times New Roman.
 - Moet goed werken op mobiel (getest op 320, 375 en desktop).
 

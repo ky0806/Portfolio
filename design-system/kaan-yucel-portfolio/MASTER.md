@@ -18,7 +18,7 @@
 
 ## Sfeer
 
-Modern, technisch, licht en lucht. Grote, zware koppen met één gekleurd woord of zinsdeel, veel witruimte, één accentkleur (violet), zachte zwevende vormen, kaarten met echte cijfers. Persoonlijkheid via de cursieve naam en verende bewegingen. Geen overbodige elementen.
+Modern, technisch, licht en lucht. Grote, zware koppen met één gekleurd woord of zinsdeel, veel witruimte, één accentkleur (pruim), zachte zwevende vormen, kaarten met echte cijfers. Persoonlijkheid via de cursieve naam en verende bewegingen. Geen overbodige elementen.
 
 **Stijl:** AI-Native UI + Minimalism & Swiss (rooster, essentie, één accent).
 **Niet doen:** iconen als emoji, nep-statistieken, parallax op tekst, zware schaduwen, meer dan één accentkleur voor knoppen.
@@ -27,23 +27,26 @@ Modern, technisch, licht en lucht. Grote, zware koppen met één gekleurd woord 
 
 ## Kleuren
 
+Hoofdkleur: diep pruim/wijnrood **#58143B** (afgeleid van een afbeelding van Kaan, vervangt het eerdere violet).
+
 | Rol | Hex | CSS-variabele | Gebruik |
 |---|---|---|---|
-| Achtergrond | `#FAFAFC` | `--color-background` | Pagina |
+| Achtergrond | `#FBF8FA` | `--color-background` | Pagina (licht warm) |
 | Kaart | `#FFFFFF` | `--color-card` | Kaarten, formulier |
-| Voorgrond | `#0F0D1F` | `--color-foreground` | Koppen, tekst (≈17:1) |
-| Gedempt | `#5B5F70` | `--color-muted-foreground` | Bijtekst (≈6:1) |
-| Rand | `#E7E5F0` | `--color-border` | Hairlines |
-| Primair (accent) | `#7C3AED` | `--color-primary` | Knoppen, gekleurd kopwoord, links |
-| Op primair | `#FFFFFF` | `--color-on-primary` | Tekst op knoppen (≈5.7:1) |
-| Violet zacht | `#EDE9FE` | `--color-primary-soft` | Hover-vlakken, vormen |
-| Violet licht | `#A78BFA` | `--color-secondary` | Zwevende vormen |
+| Voorgrond | `#1A0F17` | `--color-foreground` | Koppen, tekst |
+| Gedempt | `#6A5F68` | `--color-muted-foreground` | Bijtekst (≈6:1) |
+| Rand | `#EBDFE7` | `--color-border` | Hairlines |
+| Primair (accent) | `#58143B` | `--color-primary` | Knoppen, links, labels |
+| Primair hover | `#70205B` | `--color-primary-hover` | Hover op knoppen |
+| Op primair | `#FFFFFF` | `--color-on-primary` | Tekst op knoppen (≈14:1) |
+| Pruim zacht | `#F5E8F0` | `--color-primary-soft` | Tags, vlakken, grote vorm |
+| Pruim licht | `#C27AA6` | `--color-secondary` | Zwevende vormen |
+| Gradient | `#58143B` → `#C0397E` | `--color-gradient-from/to` | Gekleurd deel van de hoofdkop |
 | Live (cyaan) | `#0891B2` | `--color-live` | Alleen stipjes en lijnen |
 | Live-tekst | `#0E7490` | `--color-live-text` | Tekst bij live-cijfers (≈5.4:1) |
 | Fout | `#DC2626` | `--color-destructive` | Formulierfouten |
-| Focus-ring | `#7C3AED` | `--color-ring` | Zichtbare focus |
 
-Eén donker vlak (bijv. contactkaart of tools-band) mag `#0F0D1F` met witte tekst zijn voor contrast.
+Eén donker vlak (bijv. contactkaart of tools-band) mag `#1A0F17` met witte tekst zijn voor contrast.
 
 ---
 

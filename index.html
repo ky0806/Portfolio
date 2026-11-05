@@ -20,208 +20,271 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
   <style>
+    /* Design system: design-system/kaan-yucel-portfolio/MASTER.md */
     :root {
-      --bg: #0a0e14;
-      --bg-soft: #0f141c;
-      --card: #121823;
-      --text: #eef2f8;
-      --muted: #94a3b8;
-      --accent: #5eead4;
-      --accent-light: #a5f3e6;
-      --border: #222b3a;
+      --color-background: #FAFAFC;
+      --color-card: #FFFFFF;
+      --color-foreground: #0F0D1F;
+      --color-muted-foreground: #5B5F70;
+      --color-border: #E7E5F0;
+      --color-primary: #7C3AED;
+      --color-primary-hover: #6D28D9;
+      --color-on-primary: #FFFFFF;
+      --color-primary-soft: #EDE9FE;
+      --color-secondary: #A78BFA;
+      --color-live: #0891B2;
+      --color-live-text: #0E7490;
+      --color-destructive: #DC2626;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-name: 'Cormorant Garamond', serif;
+
+      --radius-card: 20px;
+      --radius-input: 12px;
+      --radius-pill: 999px;
+      --shadow-sm: 0 1px 2px rgba(15, 13, 31, .06);
+      --shadow-md: 0 8px 24px rgba(15, 13, 31, .08);
+      --shadow-lg: 0 24px 48px rgba(124, 58, 237, .14);
+
       --nav-h: 72px;
+      --section-y: clamp(96px, 14vw, 160px);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
     .i18n-pending body { visibility: hidden; }
     body {
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      background-color: var(--bg);
-      background-image: radial-gradient(ellipse 70% 520px at 12% 0, rgba(94, 234, 212, .12), transparent 70%);
-      background-repeat: no-repeat;
-      color: var(--text);
-      line-height: 1.7;
-      letter-spacing: .01em;
+      font-family: var(--font-body); font-size: 1.0625rem; font-weight: 400; line-height: 1.65;
+      background: var(--color-background); color: var(--color-foreground);
+      overflow-x: clip;
     }
-    .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-    a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+      outline: 2px solid var(--color-primary); outline-offset: 3px;
+    }
 
-    /* ---------- Navigatie (sticky) ---------- */
+    /* ---------- Navigatie ---------- */
     .site-nav {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(10, 14, 20, .55);
-      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-      border-bottom: 1px solid transparent; transition: border-color .3s;
+      background: rgba(250, 250, 252, .82);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
     }
-    .site-nav.scrolled { border-bottom-color: var(--border); }
+    .site-nav.scrolled { border-bottom-color: var(--color-border); }
     .nav-inner { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); }
-    .nav-right { display: flex; align-items: center; gap: 22px; }
-    nav a.link {
-      color: var(--muted); text-decoration: none; font-size: .82rem;
-      text-transform: uppercase; letter-spacing: .18em; transition: color .3s;
+    .clock {
+      display: flex; align-items: center; gap: 8px; white-space: nowrap;
+      font-family: var(--font-display); font-weight: 500; font-size: .72rem;
+      text-transform: uppercase; letter-spacing: .14em; color: var(--color-muted-foreground);
     }
-    nav a.link:hover { color: var(--accent-light); }
-
-    .lang { display: none; align-items: center; gap: 4px; font-size: .78rem; letter-spacing: .14em; }
+    .clock[hidden] { display: none; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-live); flex: none; }
+    .clock time { color: var(--color-live-text); font-variant-numeric: tabular-nums; }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
+    .nav-link {
+      color: var(--color-muted-foreground); text-decoration: none;
+      font-size: .9rem; font-weight: 500;
+    }
+    .nav-link:hover { color: var(--color-primary); }
+    .lang { display: none; align-items: center; gap: 4px; font-family: var(--font-display); font-size: .78rem; letter-spacing: .1em; }
     .js .lang { display: flex; }
     .lang button {
       background: none; border: 0; padding: 6px 4px; cursor: pointer;
-      font: inherit; letter-spacing: inherit; text-transform: uppercase;
-      color: var(--muted); transition: color .3s;
+      font: inherit; letter-spacing: inherit; color: var(--color-muted-foreground);
     }
-    .lang button:hover { color: var(--accent-light); }
-    .lang button[aria-pressed="true"] { color: var(--accent); font-weight: 500; }
-    .lang .sep { color: var(--muted); opacity: .4; }
+    .lang button:hover { color: var(--color-primary); }
+    .lang button[aria-pressed="true"] { color: var(--color-primary); font-weight: 700; }
+    .lang .sep { color: var(--color-border); }
+
+    /* ---------- Knoppen ---------- */
+    .btn {
+      display: inline-block; padding: 14px 28px; border-radius: var(--radius-pill);
+      border: 1px solid var(--color-border); background: var(--color-card); color: var(--color-foreground);
+      font-family: var(--font-body); font-size: .95rem; font-weight: 500; text-decoration: none; cursor: pointer;
+    }
+    .btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .btn.primary { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
+    .btn.primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: var(--color-on-primary); }
+    .btn-sm { padding: 9px 20px; font-size: .85rem; }
 
     /* ---------- Hero ---------- */
-    header { padding: 64px 0 100px; }
-    .clock {
-      display: flex; align-items: center; gap: 8px; white-space: nowrap;
-      color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .18em;
+    .hero { position: relative; padding: clamp(48px, 8vw, 96px) 0 var(--section-y); }
+    .shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .shape { position: absolute; border-radius: 50%; will-change: transform; }
+    .s1 { width: clamp(220px, 34vw, 420px); aspect-ratio: 1; background: var(--color-primary-soft); right: -6%; top: -4%; }
+    .s2 { width: clamp(90px, 12vw, 150px); aspect-ratio: 1; background: var(--color-secondary); opacity: .4; left: 46%; top: 52%; }
+    .s3 { width: clamp(110px, 15vw, 190px); aspect-ratio: 1; border: 1.5px solid var(--color-secondary); right: 8%; bottom: 6%; opacity: .7; }
+    .hero-grid { position: relative; z-index: 1; display: grid; gap: 56px; align-items: center; }
+    .label {
+      font-family: var(--font-display); font-weight: 500; font-size: .75rem;
+      text-transform: uppercase; letter-spacing: .14em; color: var(--color-primary);
     }
-    .clock[hidden] { display: none; }
-    .clock .dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-    .clock time { color: var(--accent-light); font-variant-numeric: tabular-nums; }
-    @keyframes pulse { 50% { opacity: .3; } }
-    .tag {
-      color: var(--accent); font-size: .8rem; font-weight: 500;
-      text-transform: uppercase; letter-spacing: .3em;
-    }
-    .line { width: 60px; height: 1px; background: var(--accent); margin: 22px 0; }
-    h1 {
-      font-family: 'Cormorant Garamond', serif; font-weight: 500;
-      font-size: clamp(3.4rem, 10vw, 6.5rem); line-height: 1; margin-bottom: 26px;
-      letter-spacing: .01em;
-    }
-    h1 em { color: var(--accent-light); font-style: italic; }
+    h1 { margin: 18px 0 0; font-weight: 400; }
     .statement {
-      font-family: 'Playfair Display', serif; font-weight: 500;
-      font-size: clamp(1.7rem, 4.6vw, 2.9rem); line-height: 1.2;
-      max-width: 18em; letter-spacing: 0;
+      display: block; font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(2.6rem, 7.4vw, 5.5rem); line-height: 1.02; letter-spacing: -.035em;
+      max-width: 11em;
     }
-    .links { margin-top: 44px; display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn {
-      display: inline-block; padding: 13px 28px;
-      border: 1px solid var(--accent); color: var(--accent-light);
-      text-decoration: none; font-size: .82rem; font-weight: 400;
-      text-transform: uppercase; letter-spacing: .2em;
-      transition: background .3s, color .3s;
+    .statement .w { display: inline-block; }
+    .statement .accent { color: var(--color-primary); }
+    .name {
+      display: block; margin-top: 18px; font-family: var(--font-name); font-style: italic; font-weight: 500;
+      font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; color: var(--color-foreground);
     }
-    .btn:hover { background: var(--accent); color: var(--bg); }
-    .btn.primary { background: var(--accent); color: var(--bg); }
-    .btn.primary:hover { background: var(--accent-light); border-color: var(--accent-light); }
-    .btn-sm { padding: 8px 18px; font-size: .72rem; letter-spacing: .16em; }
+    .links { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .tilt-wrap { perspective: 900px; }
+    .stat-card {
+      background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+      box-shadow: var(--shadow-lg); padding: 24px 26px; transform-style: preserve-3d; will-change: transform;
+    }
+    .stat-head {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+      font-family: var(--font-display); font-weight: 500; font-size: .72rem;
+      text-transform: uppercase; letter-spacing: .14em; color: var(--color-muted-foreground);
+    }
+    .stat-head .live { display: inline-flex; align-items: center; gap: 7px; color: var(--color-live-text); }
+    .stat-row { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-top: 1px solid var(--color-border); }
+    .stat-row:first-of-type { border-top: 0; }
+    .stat-num {
+      font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; line-height: 1;
+      letter-spacing: -.02em; font-variant-numeric: tabular-nums; min-width: 2ch;
+    }
+    .stat-label { font-size: .88rem; color: var(--color-muted-foreground); line-height: 1.3; }
+    .stat-unit { display: block; color: var(--color-live-text); font-size: .78rem; }
 
     /* ---------- Secties ---------- */
-    section { padding: 80px 0; border-top: 1px solid var(--border); scroll-margin-top: calc(var(--nav-h) - 1px); }
+    section { padding: var(--section-y) 0 0; scroll-margin-top: calc(var(--nav-h) - 1px); }
     h2 {
-      font-family: 'Playfair Display', serif; font-weight: 500;
-      font-size: 2.2rem; margin-bottom: 8px;
+      font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.08; letter-spacing: -.025em; margin-bottom: 14px;
     }
-    .sub { color: var(--muted); margin-bottom: 40px; }
+    .sub { color: var(--color-muted-foreground); margin-bottom: 48px; max-width: 34em; }
 
     /* ---------- Projectkaarten ---------- */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
     .card {
-      display: flex; flex-direction: column; overflow: hidden;
-      background: var(--card); border: 1px solid var(--border);
-      transition: border-color .4s, transform .4s, box-shadow .4s;
+      position: relative; display: flex; flex-direction: column; overflow: hidden; cursor: pointer;
+      background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+      box-shadow: var(--shadow-sm); will-change: transform;
     }
-    .card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0, 0, 0, .35); }
-    .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--bg-soft); }
-    .shot img, .ph { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform .7s ease; }
-    .shot img { object-fit: cover; display: block; }
+    .card:hover { box-shadow: var(--shadow-lg); border-color: var(--color-secondary); }
+    .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--color-primary-soft); }
+    .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .ph {
-      display: flex; align-items: center; justify-content: center;
-      background:
-        repeating-linear-gradient(45deg, rgba(94, 234, 212, .045) 0 1px, transparent 1px 14px),
-        radial-gradient(ellipse at 28% 18%, rgba(94, 234, 212, .2), transparent 62%),
-        linear-gradient(135deg, #151d2b, #0a0e14);
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--color-primary-soft), #FFFFFF);
+      font-family: var(--font-display); font-weight: 700; font-size: 3.2rem; color: var(--color-secondary);
     }
-    .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(94, 234, 212, .28); }
-    .ph span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem; color: var(--accent); opacity: .55; }
-    .card:hover .shot img, .card:hover .ph { transform: scale(1.05); }
-    .card-body { display: flex; flex-direction: column; flex: 1; padding: 24px 26px 26px; }
-    .card h3 {
-      font-family: 'Playfair Display', serif; font-weight: 500;
-      font-size: 1.35rem; margin-bottom: 8px;
-    }
-    .card p { color: var(--muted); font-size: .95rem; }
+    .ph::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(124, 58, 237, .18); border-radius: 12px; }
+    .card-body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+    .card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; line-height: 1.25; letter-spacing: -.01em; margin-bottom: 6px; }
+    .card p { color: var(--color-muted-foreground); font-size: .98rem; }
     .stack { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
     .stack span {
-      font-size: .7rem; padding: 4px 10px;
-      border: 1px solid var(--border); color: var(--accent-light);
-      text-transform: uppercase; letter-spacing: .12em;
+      font-size: .78rem; font-weight: 500; padding: 3px 12px; border-radius: var(--radius-pill);
+      background: var(--color-primary-soft); color: #5B21B6;
     }
     .card-links { margin-top: auto; padding-top: 22px; display: flex; gap: 22px; flex-wrap: wrap; }
-    .card-links a {
-      color: var(--accent); text-decoration: none; font-size: .78rem;
-      text-transform: uppercase; letter-spacing: .2em;
-      border-bottom: 1px solid transparent; padding-bottom: 2px;
-      transition: color .3s, border-color .3s;
+    .card-links a { color: var(--color-primary); text-decoration: none; font-weight: 500; font-size: .92rem; }
+    .card-links a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+    /* Uitgeklapte projectkaart */
+    .pd { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; }
+    .pd[hidden] { display: none; }
+    .pd-backdrop { position: fixed; inset: 0; background: rgba(15, 13, 31, .5); }
+    .pd-panel {
+      position: relative; width: min(720px, 100%); max-height: calc(100vh - 32px); overflow: auto; overscroll-behavior: contain;
+      background: var(--color-card); border-radius: 24px; box-shadow: var(--shadow-lg); transform-origin: 0 0;
     }
-    .card-links a:hover { color: var(--accent-light); border-bottom-color: var(--accent); }
+    .pd-content { position: relative; }
+    .pd-body { padding: 28px 32px 32px; }
+    .pd-body h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -.02em; line-height: 1.15; margin-bottom: 10px; }
+    .pd-body p { color: var(--color-muted-foreground); }
+    .pd-close {
+      position: absolute; top: 14px; right: 14px; z-index: 2; width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--color-border); background: rgba(255, 255, 255, .92); color: var(--color-foreground);
+      font-size: 1.4rem; line-height: 1; cursor: pointer;
+    }
+    .pd-close:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    /* ---------- Tools-band ---------- */
+    .tools { padding-top: var(--section-y); }
+    .marquee {
+      overflow: hidden; padding: 6px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .track { display: flex; width: max-content; list-style: none; will-change: transform; }
+    .track li {
+      margin-right: 12px; padding: 12px 26px; border-radius: var(--radius-pill); white-space: nowrap;
+      background: var(--color-card); border: 1px solid var(--color-border);
+      font-family: var(--font-display); font-weight: 500; font-size: 1.05rem;
+    }
+    .no-motion .track { flex-wrap: wrap; width: auto; gap: 10px; }
+    .no-motion .track li { margin-right: 0; }
+
+    /* ---------- Tijdlijn ---------- */
+    .timeline { position: relative; padding-left: 44px; max-width: 720px; }
+    .tl-list { list-style: none; }
+    .tl-line { position: absolute; left: 10px; top: 8px; bottom: 8px; width: 2px; background: var(--color-border); }
+    .tl-fill { position: absolute; inset: 0; background: var(--color-primary); transform-origin: top; transform: scaleY(0); }
+    .tl-item { position: relative; padding-bottom: 44px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -44px; top: 7px; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--color-background); border: 2px solid var(--color-border);
+    }
+    .tl-item.on .tl-dot { border-color: var(--color-primary); background: var(--color-primary); box-shadow: 0 0 0 5px var(--color-primary-soft); }
+    .tl-year { font-family: var(--font-display); font-weight: 500; font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--color-primary); }
+    .tl-item h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -.015em; margin: 2px 0 4px; }
+    .tl-item p { color: var(--color-muted-foreground); max-width: 34em; }
 
     /* ---------- Contact ---------- */
     .contact { text-align: center; }
-    .contact h2 { font-size: clamp(2rem, 5vw, 3rem); }
+    .contact .sub { margin-left: auto; margin-right: auto; margin-bottom: 0; }
     .contact-form {
-      background: var(--card); border: 1px solid var(--border);
-      max-width: 560px; margin: 40px auto 0; padding: 36px 32px; text-align: left;
+      background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+      box-shadow: var(--shadow-md); max-width: 580px; margin: 48px auto 0; padding: 36px 32px; text-align: left;
     }
     .field { margin-bottom: 18px; }
     .field label {
-      display: block; margin-bottom: 6px; color: var(--accent);
-      font-size: .72rem; font-weight: 500; text-transform: uppercase; letter-spacing: .2em;
+      display: block; margin-bottom: 6px; font-family: var(--font-display); font-weight: 500; font-size: .75rem;
+      text-transform: uppercase; letter-spacing: .14em; color: var(--color-muted-foreground);
     }
-    .field input, .field textarea, .field select {
-      width: 100%; padding: 12px 14px; background: var(--bg); color: var(--text);
-      border: 1px solid var(--border); font: inherit; font-size: 1rem;
-      transition: border-color .3s;
+    .field input, .field textarea {
+      width: 100%; padding: 13px 16px; background: var(--color-background); color: var(--color-foreground);
+      border: 1px solid var(--color-border); border-radius: var(--radius-input); font: inherit; font-size: 1rem;
     }
-    .field ::placeholder { color: var(--muted); opacity: .55; }
-    .field textarea { min-height: 130px; resize: vertical; }
-    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--accent); }
+    .field ::placeholder { color: var(--color-muted-foreground); opacity: .6; }
+    .field textarea { min-height: 140px; resize: vertical; }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(124, 58, 237, .2); }
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-    .contact-form .btn { width: 100%; cursor: pointer; font-family: inherit; }
+    .contact-form .btn { width: 100%; }
     .contact-form .btn:disabled { opacity: .6; cursor: default; }
-    .status {
-      margin-top: 18px; padding: 14px 16px; font-size: .95rem; text-align: center;
-      border: 1px solid var(--border);
-    }
+    .status { margin-top: 18px; padding: 14px 16px; font-size: .95rem; text-align: center; border-radius: var(--radius-input); border: 1px solid var(--color-border); }
     .status[hidden] { display: none; }
-    .status.ok { border-color: var(--accent); color: var(--accent-light); background: rgba(94, 234, 212, .08); }
-    .status.err { border-color: #b4534b; color: #f4a7a0; background: rgba(180, 83, 75, .12); }
-
-    /* Geleidelijk inkomen bij scrollen; de klassen worden door het script gezet en na afloop weer weggehaald. */
-    .reveal {
-      opacity: 0; transform: translateY(42px);
-      transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1);
-      transition-delay: var(--d, 0s);
-    }
-    .reveal.in { opacity: 1; transform: none; }
+    .status.ok { background: var(--color-primary-soft); border-color: var(--color-secondary); color: #5B21B6; }
+    .status.err { background: #FEF2F2; border-color: #FCA5A5; color: #B91C1C; }
 
     footer {
-      padding: 40px 0 60px; color: var(--muted); font-size: .8rem;
-      text-align: center; letter-spacing: .15em; text-transform: uppercase;
-      border-top: 1px solid var(--border);
+      margin-top: var(--section-y); padding: 36px 0 56px; border-top: 1px solid var(--color-border);
+      color: var(--color-muted-foreground); font-size: .85rem; text-align: center;
     }
 
+    @media (min-width: 1000px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr) 340px; }
+    }
     @media (max-width: 600px) {
       :root { --nav-h: 64px; }
       .nav-right { gap: 12px; }
-      nav a.link { font-size: .72rem; letter-spacing: .12em; }
-      .lang { font-size: .72rem; letter-spacing: .1em; }
       .clock { font-size: .66rem; letter-spacing: .1em; gap: 6px; }
-      header { padding: 44px 0 70px; }
-      .tag { letter-spacing: .2em; }
-      .card-body { padding: 22px 22px 24px; }
+      .lang { font-size: .72rem; }
+      .btn-sm { padding: 8px 16px; font-size: .8rem; }
+      .hero-grid { gap: 40px; }
+      .pd-body { padding: 24px 22px 26px; }
     }
     @media (max-width: 520px) {
       .nav-projects { display: none; }
@@ -231,13 +294,9 @@
       .nav-right { gap: 8px; }
       .clock { font-size: .62rem; letter-spacing: .06em; gap: 5px; }
       .clock .sep { display: none; }
-      .btn-sm { padding: 7px 12px; font-size: .66rem; letter-spacing: .1em; }
+      .btn-sm { padding: 7px 12px; font-size: .75rem; }
       .lang { font-size: .66rem; }
       .contact-form { padding: 28px 20px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
@@ -246,8 +305,8 @@
     <div class="wrap nav-inner">
       <div class="clock"><span class="dot" aria-hidden="true"></span><span>Weert, NL</span><span class="sep" aria-hidden="true">·</span><time id="clock">--:--</time></div>
       <div class="nav-right">
-        <a class="link nav-projects" href="#projects" data-i18n="nav.projects">Projecten</a>
-        <a class="btn btn-sm" href="#contact" data-i18n="nav.contact">Contact</a>
+        <a class="nav-link nav-projects" href="#projects" data-i18n="nav.projects">Projecten</a>
+        <a class="btn btn-sm primary" href="#contact" data-i18n="nav.contact">Contact</a>
         <div class="lang" role="group" aria-label="Taal / Language">
           <button type="button" data-lang="nl" lang="nl" aria-pressed="true" aria-label="Nederlands">NL</button>
           <span class="sep" aria-hidden="true">|</span>
@@ -257,16 +316,34 @@
     </div>
   </nav>
 
-  <div class="wrap">
-    <header>
-      <div class="tag" data-i18n="hero.tag">Student · AI Engineer · Builder</div>
-      <div class="line"></div>
-      <h1><em>Kaan Yücel</em></h1>
-      <p class="statement" data-i18n="hero.statement">Van idee naar werkende AI-⁠toepassing.</p>
-      <div class="links">
-        <a class="btn primary" href="#contact" data-i18n="hero.contact">Neem contact op</a>
-        <a class="btn" href="https://github.com/ky0806" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="https://www.linkedin.com/in/kaan-y%C3%BCcel-961430445/" target="_blank" rel="noopener">LinkedIn</a>
+  <main class="wrap">
+    <header class="hero" id="top">
+      <div class="shapes" aria-hidden="true">
+        <span class="shape s1" data-speed="0.16"></span>
+        <span class="shape s2" data-speed="-0.1"></span>
+        <span class="shape s3" data-speed="0.3"></span>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <p class="label" id="hero-label" data-i18n="hero.tag">Student · AI Engineer · Builder</p>
+          <h1>
+            <span class="statement" id="statement">Van idee naar <span class="accent">werkende AI-&#8288;toepassing.</span></span>
+            <span class="name" id="hero-name">Kaan Yücel</span>
+          </h1>
+          <div class="links" id="hero-links">
+            <a class="btn primary" href="#contact" data-i18n="hero.contact">Neem contact op</a>
+            <a class="btn" href="https://github.com/ky0806" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/kaan-y%C3%BCcel-961430445/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <div class="tilt-wrap" id="stat-wrap">
+          <aside class="stat-card" id="stat-card">
+            <div class="stat-head"><span data-i18n="stats.title">Live</span><span class="live"><i class="dot" aria-hidden="true"></i>GitHub</span></div>
+            <div class="stat-row"><strong class="stat-num" id="stat-repos">—</strong><span class="stat-label" data-i18n="stats.repos">GitHub-repo's</span></div>
+            <div class="stat-row"><strong class="stat-num" id="stat-commits">—</strong><span class="stat-label" data-i18n="stats.commits">Commits in nieuwste repo</span></div>
+            <div class="stat-row"><strong class="stat-num" id="stat-update">—</strong><span class="stat-label"><span data-i18n="stats.update">Laatste update</span><span class="stat-unit" id="stat-unit"></span></span></div>
+          </aside>
+        </div>
       </div>
     </header>
 
@@ -276,9 +353,19 @@
       <div class="grid" id="projects-grid"></div>
     </section>
 
+    <section id="tools" class="tools">
+      <h2 data-i18n="tools.title">Waarmee ik bouw</h2>
+      <div class="marquee" id="marquee"><ul class="track" id="tools-track"></ul></div>
+    </section>
+
+    <section id="path">
+      <h2 data-i18n="timeline.title">Mijn pad</h2>
+      <div class="timeline" id="timeline"><span class="tl-line" aria-hidden="true"><span class="tl-fill" id="tl-fill"></span></span><ol class="tl-list" id="tl-list"></ol></div>
+    </section>
+
     <section id="contact" class="contact">
       <h2 data-i18n="contact.title">Laten we samenwerken</h2>
-      <p class="sub" style="margin-bottom:0" data-i18n="contact.sub">Heb je een project of kans in gedachten? Stuur me gerust een bericht.</p>
+      <p class="sub" data-i18n="contact.sub">Heb je een project of kans in gedachten? Stuur me gerust een bericht.</p>
 
       <form id="contact-form" class="contact-form">
         <div class="field">
@@ -303,16 +390,33 @@
     </section>
 
     <footer data-i18n="footer.text">© 2026 Kaan Yücel</footer>
+  </main>
+
+  <div class="pd" id="pd" hidden>
+    <div class="pd-backdrop" id="pd-backdrop"></div>
+    <div class="pd-panel" id="pd-panel" role="dialog" aria-modal="true" aria-labelledby="pd-title" tabindex="-1">
+      <div class="pd-content" id="pd-content">
+        <button type="button" class="pd-close" id="pd-close" data-i18n-aria-label="projects.close" aria-label="Sluiten">&times;</button>
+        <div class="shot" id="pd-shot"></div>
+        <div class="pd-body">
+          <h3 id="pd-title"></h3>
+          <p id="pd-text"></p>
+          <div class="stack" id="pd-tags"></div>
+          <div class="card-links" id="pd-links"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <script src="vendor/motion.js"></script>
   <script>
     // ---------------------------------------------------------------
     // PROJECTEN. Een project toevoegen = een blok in deze lijst erbij zetten.
-    //   title, description : tekst, of { nl: '...', en: '...' } voor beide talen
-    //   tags               : technieken die als labels getoond worden
-    //   demo, code         : link naar live demo / GitHub. Leeg laten = knop wordt niet getoond
-    //   image              : pad naar een screenshot, bijvoorbeeld 'images/project-1.jpg'
-    //                        (16:10, ca. 1200×750 px). Leeg = stijlvolle placeholder
+    //   title, description, details : tekst, of { nl: '...', en: '...' } voor beide talen
+    //   tags                        : technieken die als labels getoond worden
+    //   demo, code                  : link naar live demo / GitHub. Leeg = knop wordt niet getoond
+    //   image                       : pad naar een screenshot, bv. 'images/project-1.jpg'
+    //                                 (16:10, ca. 1200×750 px). Leeg = placeholder met projectnummer
     // ---------------------------------------------------------------
     var projects = [
       {
@@ -320,6 +424,10 @@
         description: {
           nl: 'Eén korte regel over wat dit project doet of oplevert.',
           en: 'One short line about what this project does or delivers.'
+        },
+        details: {
+          nl: 'Hier komt een iets uitgebreidere beschrijving: welk probleem je oploste, hoe je het aanpakte en wat het resultaat was.',
+          en: 'A slightly longer description goes here: which problem you solved, how you approached it and what the result was.'
         },
         tags: ['HTML', 'JavaScript'],
         demo: '#',
@@ -332,6 +440,10 @@
           nl: 'Eén korte regel over wat dit project doet of oplevert.',
           en: 'One short line about what this project does or delivers.'
         },
+        details: {
+          nl: 'Hier komt een iets uitgebreidere beschrijving: welk probleem je oploste, hoe je het aanpakte en wat het resultaat was.',
+          en: 'A slightly longer description goes here: which problem you solved, how you approached it and what the result was.'
+        },
         tags: ['Python', 'LLM'],
         demo: '',
         code: 'https://github.com/ky0806',
@@ -343,6 +455,10 @@
           nl: 'Eén korte regel over wat dit project doet of oplevert.',
           en: 'One short line about what this project does or delivers.'
         },
+        details: {
+          nl: 'Hier komt een iets uitgebreidere beschrijving: welk probleem je oploste, hoe je het aanpakte en wat het resultaat was.',
+          en: 'A slightly longer description goes here: which problem you solved, how you approached it and what the result was.'
+        },
         tags: ['Supabase', 'Vercel'],
         demo: '',
         code: '',
@@ -350,10 +466,42 @@
       }
     ];
 
+    // TOOLS in de doorlopende band. Gewoon een lijst met namen.
+    var tools = ['HTML', 'CSS', 'JavaScript', 'Vercel', 'GitHub', 'Resend', 'Claude Code'];
+
+    // TIJDLIJN. year, title en text: tekst of { nl, en }.
+    var timeline = [
+      {
+        year: '2026',
+        title: { nl: 'Portfolio online', en: 'Portfolio online' },
+        text: {
+          nl: 'Mijn eerste eigen website gelanceerd, met contactformulier en twee talen.',
+          en: 'Launched my first own website, with a contact form and two languages.'
+        }
+      },
+      {
+        year: { nl: 'Nu', en: 'Now' },
+        title: { nl: 'Student en bouwer', en: 'Student and builder' },
+        text: {
+          nl: 'Studeren, werken naast mijn studie en websites, tools en AI-toepassingen bouwen.',
+          en: 'Studying, working alongside my studies and building websites, tools and AI applications.'
+        }
+      },
+      {
+        year: { nl: 'Straks', en: 'Next' },
+        title: { nl: 'AI engineer', en: 'AI engineer' },
+        text: {
+          nl: 'Het doel: AI-systemen ontwerpen en bouwen die echt werken.',
+          en: 'The goal: designing and building AI systems that actually work.'
+        }
+      }
+    ];
+
     // ---------------------------------------------------------------
     // VERTALINGEN. Voeg een tekst toe door dezelfde sleutel in nl én en
     // te zetten en data-i18n="sleutel" op het HTML-element te zetten
-    // (data-i18n-placeholder="sleutel" voor een placeholder).
+    // (data-i18n-placeholder / data-i18n-aria-label voor die attributen).
+    // In hero.statement scheidt | het gewone deel van het gekleurde deel.
     // ---------------------------------------------------------------
     var translations = {
       nl: {
@@ -364,13 +512,25 @@
         'nav.contact': 'Contact',
 
         'hero.tag': 'Student · AI Engineer · Builder',
-        'hero.statement': 'Van idee naar werkende AI-⁠toepassing.',
+        'hero.statement': 'Van idee naar |werkende AI-⁠toepassing.',
         'hero.contact': 'Neem contact op',
+
+        'stats.title': 'Live',
+        'stats.repos': 'GitHub-repo\'s',
+        'stats.commits': 'Commits in nieuwste repo',
+        'stats.update': 'Laatste update',
+        'stats.daysAgo': 'dagen geleden',
+        'stats.dayAgo': 'dag geleden',
+        'stats.today': 'vandaag',
 
         'projects.title': 'Uitgelicht werk',
         'projects.sub': 'Een greep uit wat ik heb gebouwd.',
         'projects.demo': 'Live demo',
         'projects.code': 'Code',
+        'projects.close': 'Sluiten',
+
+        'tools.title': 'Waarmee ik bouw',
+        'timeline.title': 'Mijn pad',
 
         'contact.title': 'Laten we samenwerken',
         'contact.sub': 'Heb je een project of kans in gedachten? Stuur me gerust een bericht.',
@@ -400,13 +560,25 @@
         'nav.contact': 'Contact',
 
         'hero.tag': 'Student · AI Engineer · Builder',
-        'hero.statement': 'From idea to working AI application.',
+        'hero.statement': 'From idea to |working AI application.',
         'hero.contact': 'Contact me',
+
+        'stats.title': 'Live',
+        'stats.repos': 'GitHub repos',
+        'stats.commits': 'Commits in latest repo',
+        'stats.update': 'Last update',
+        'stats.daysAgo': 'days ago',
+        'stats.dayAgo': 'day ago',
+        'stats.today': 'today',
 
         'projects.title': 'Selected work',
         'projects.sub': 'A few things I\'ve built.',
         'projects.demo': 'Live demo',
         'projects.code': 'Code',
+        'projects.close': 'Close',
+
+        'tools.title': 'What I build with',
+        'timeline.title': 'My path',
 
         'contact.title': 'Let\'s work together',
         'contact.sub': 'Have a project or opportunity in mind? Get in touch.',
@@ -434,15 +606,40 @@
       var DEFAULT_LANG = 'nl';
       var lang = DEFAULT_LANG;
       var root = document.documentElement;
+      var $ = function (id) { return document.getElementById(id); };
+
+      // ---------- Motion: alle spring-instellingen op één plek ----------
+      var M = window.Motion || null;
+      var spring = {
+        default: { type: 'spring', stiffness: 120, damping: 20, mass: 1 },
+        hover: { type: 'spring', stiffness: 300, damping: 25 }
+      };
+      var reduceQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+      function reduced() { return reduceQuery.matches; }
+      function withDelay(delay) { return Object.assign({}, spring.default, { delay: delay || 0 }); }
+
+      // Laat een element met een spring verschijnen (alleen fade bij "minder beweging").
+      function fadeUp(el, delay) {
+        return animate(el, reduced() ? { opacity: [0, 1] } : { opacity: [0, 1], y: [40, 0] }, withDelay(delay));
+      }
+      function animate(target, keyframes, options) { return M.animate(target, keyframes, options); }
+
+      // Verbergt een element en laat het inkomen zodra het in beeld komt.
+      function appear(el, delay) {
+        if (!M || !el) return;
+        el.style.opacity = '0';
+        var stop = M.inView(el, function () {
+          fadeUp(el, delay);
+          if (stop) stop();
+        }, { amount: 0.2 });
+      }
+
+      // ---------- Taal ----------
       var metaDescription = document.querySelector('meta[name="description"]');
       var switchButtons = document.querySelectorAll('.lang button');
-      var form = document.getElementById('contact-form');
-      var button = form.querySelector('button[type="submit"]');
-      var status = document.getElementById('form-status');
-      var grid = document.getElementById('projects-grid');
-      var sending = false;
-      var lastStatus = null; // { kind, key }; zo wordt de melding mee vertaald bij een taalwissel
-      var ERROR_KEYS = { missing_fields: 'form.err.missing', too_long: 'form.err.long', invalid_email: 'form.err.email' };
+      var statementEl = $('statement');
+      var statementSeen = false;
 
       function t(key) {
         var own = translations[lang];
@@ -450,20 +647,17 @@
         var fallback = translations[DEFAULT_LANG][key];
         return fallback !== undefined ? fallback : key;
       }
-
-      // Tekst uit een project: gewone tekst, of { nl, en }.
+      // Tekst uit een lijst: gewone tekst, of { nl, en }.
       function pick(value) {
         if (value && typeof value === 'object') return value[lang] !== undefined ? value[lang] : value[DEFAULT_LANG];
         return value;
       }
-
       function make(tag, className, text) {
         var node = document.createElement(tag);
         if (className) node.className = className;
         if (text !== undefined) node.textContent = text;
         return node;
       }
-
       function link(href, label) {
         var a = make('a', '', label);
         a.href = href;
@@ -471,76 +665,307 @@
         return a;
       }
 
-      // Inkomen bij scrollen. Zonder IntersectionObserver of bij "minder beweging" blijft alles gewoon staan.
-      var canReveal = 'IntersectionObserver' in window &&
-        !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-      var projectsRevealed = false; // na de eerste keer krijgen opnieuw getekende kaarten (taalwissel) geen animatie meer
-      var revealObserver = canReveal && new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          revealObserver.unobserve(entry.target);
-          if (entry.target.classList.contains('card')) projectsRevealed = true;
-          entry.target.classList.add('in');
+      // ---------- Hero: kop die woord voor woord invliegt ----------
+      function renderStatement() {
+        var parts = t('hero.statement').split('|');
+        statementEl.textContent = '';
+        var words = [];
+        parts.forEach(function (part, partIndex) {
+          part.trim().split(' ').forEach(function (word) {
+            if (!word) return;
+            var span = make('span', 'w' + (partIndex === 1 ? ' accent' : ''), word);
+            if (words.length) statementEl.appendChild(document.createTextNode(' '));
+            statementEl.appendChild(span);
+            words.push(span);
+          });
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        if (!M) return;
+        words.forEach(function (w) { w.style.opacity = '0'; });
+        var delay = statementSeen ? 0 : 0.1;
+        statementSeen = true;
+        if (reduced()) {
+          animate(words, { opacity: [0, 1] }, withDelay(delay));
+        } else {
+          animate(words, { opacity: [0, 1], y: [48, 0] }, Object.assign({}, spring.default, { delay: M.stagger(0.07, { startDelay: delay }) }));
+        }
+      }
 
-      function reveal(el, delay) {
-        if (!canReveal) return;
-        el.style.setProperty('--d', delay + 's');
-        el.style.transition = 'none'; // direct verbergen, zonder weg te faden
-        el.classList.add('reveal');
-        void el.offsetWidth;
-        el.style.transition = '';
-        el.addEventListener('transitionend', function done(e) {
-          if (e.target !== el || e.propertyName !== 'opacity' || !el.classList.contains('in')) return;
-          el.removeEventListener('transitionend', done);
-          el.classList.remove('reveal', 'in');
-          el.style.removeProperty('--d');
-        });
-        revealObserver.observe(el);
+      // ---------- Projecten ----------
+      var grid = $('projects-grid');
+      var projectsRevealed = false; // na de eerste keer krijgen opnieuw getekende kaarten geen intro meer
+      var openIndex = -1;
+
+      function shotNode(project, index) {
+        var shot = make('div', 'shot');
+        if (project.image) {
+          var img = make('img');
+          img.src = project.image;
+          img.alt = pick(project.title);
+          img.loading = 'lazy';
+          shot.appendChild(img);
+        } else {
+          var ph = make('div', 'ph', ('0' + (index + 1)).slice(-2));
+          ph.setAttribute('aria-hidden', 'true');
+          shot.appendChild(ph);
+        }
+        return shot;
+      }
+      function tagsNode(project, container) {
+        container.textContent = '';
+        (project.tags || []).forEach(function (tag) { container.appendChild(make('span', '', tag)); });
+      }
+      function linksNode(project, container) {
+        container.textContent = '';
+        if (project.demo) container.appendChild(link(project.demo, t('projects.demo') + ' ↗'));
+        if (project.code) container.appendChild(link(project.code, t('projects.code') + ' ↗'));
+        container.hidden = !container.childNodes.length;
       }
 
       function renderProjects() {
         grid.textContent = '';
         projects.forEach(function (project, i) {
-          var title = pick(project.title);
           var card = make('article', 'card');
-
-          var shot = make('div', 'shot');
-          if (project.image) {
-            var img = make('img');
-            img.src = project.image;
-            img.alt = title;
-            img.loading = 'lazy';
-            shot.appendChild(img);
-          } else {
-            var ph = make('div', 'ph');
-            ph.setAttribute('aria-hidden', 'true');
-            ph.appendChild(make('span', '', ('0' + (i + 1)).slice(-2)));
-            shot.appendChild(ph);
-          }
-          card.appendChild(shot);
+          card.tabIndex = 0;
+          card.setAttribute('role', 'button');
+          card.setAttribute('aria-haspopup', 'dialog');
+          card.setAttribute('aria-label', pick(project.title));
+          card.appendChild(shotNode(project, i));
 
           var body = make('div', 'card-body');
-          body.appendChild(make('h3', '', title));
+          body.appendChild(make('h3', '', pick(project.title)));
           body.appendChild(make('p', '', pick(project.description)));
-
           var stack = make('div', 'stack');
-          (project.tags || []).forEach(function (tag) { stack.appendChild(make('span', '', tag)); });
+          tagsNode(project, stack);
           body.appendChild(stack);
-
           if (project.demo || project.code) {
             var links = make('div', 'card-links');
-            if (project.demo) links.appendChild(link(project.demo, t('projects.demo') + ' ↗'));
-            if (project.code) links.appendChild(link(project.code, t('projects.code') + ' ↗'));
+            linksNode(project, links);
+            links.addEventListener('click', function (e) { e.stopPropagation(); });
             body.appendChild(links);
           }
-
           card.appendChild(body);
           grid.appendChild(card);
-          if (!projectsRevealed) reveal(card, 0.2 + i * 0.12);
+
+          card.addEventListener('click', function () { openProject(i, card); });
+          card.addEventListener('keydown', function (e) {
+            if ((e.key === 'Enter' || e.key === ' ') && e.target === card) { e.preventDefault(); openProject(i, card); }
+          });
+
+          if (M) {
+            // Verend omhoog bij hover (alleen op apparaten met een muis).
+            M.hover(card, function () {
+              animate(card, { y: -8 }, spring.hover);
+              return function () { animate(card, { y: 0 }, spring.hover); };
+            });
+            // Invliegen bij scrollen, met stagger per kaart.
+            if (!projectsRevealed) {
+              card.style.opacity = '0';
+              var stop = M.inView(card, function () {
+                projectsRevealed = true;
+                fadeUp(card, (i % 3) * 0.1);
+                if (stop) stop();
+              }, { amount: 0.15 });
+            }
+          }
         });
       }
+
+      // Uitklappen: de kaart groeit verend uit tot een groot paneel (FLIP, alleen transform en opacity).
+      var pd = $('pd'), pdPanel = $('pd-panel'), pdBackdrop = $('pd-backdrop'), pdContent = $('pd-content');
+      var openCard = null;
+
+      function fillDialog(project, index) {
+        var shot = $('pd-shot');
+        shot.textContent = '';
+        shot.appendChild(shotNode(project, index).firstChild);
+        $('pd-title').textContent = pick(project.title);
+        $('pd-text').textContent = pick(project.details) || pick(project.description);
+        tagsNode(project, $('pd-tags'));
+        linksNode(project, $('pd-links'));
+      }
+
+      function openProject(index, card) {
+        if (openIndex !== -1) return;
+        openIndex = index;
+        openCard = card;
+        fillDialog(projects[index], index);
+        pd.hidden = false;
+        pdPanel.style.transform = 'none';
+        var from = card.getBoundingClientRect();
+        var to = pdPanel.getBoundingClientRect();
+        card.style.visibility = 'hidden';
+        if (!M) { pdContent.style.opacity = '1'; }
+        else if (reduced()) {
+          animate(pdBackdrop, { opacity: [0, 1] }, spring.default);
+          animate(pdPanel, { opacity: [0, 1] }, spring.default);
+        } else {
+          pdContent.style.opacity = '0';
+          animate(pdBackdrop, { opacity: [0, 1] }, spring.default);
+          animate(pdPanel, {
+            x: [from.left - to.left, 0], y: [from.top - to.top, 0],
+            scaleX: [from.width / to.width, 1], scaleY: [from.height / to.height, 1]
+          }, spring.default);
+          animate(pdContent, { opacity: [0, 1] }, withDelay(0.15));
+        }
+        $('pd-close').focus({ preventScroll: true });
+      }
+
+      function closeProject() {
+        if (openIndex === -1) return;
+        var card = openCard;
+        function finish() {
+          pd.hidden = true;
+          pdPanel.style.transform = '';
+          pdPanel.style.opacity = '';
+          pdContent.style.opacity = '';
+          card.style.visibility = '';
+          openIndex = -1;
+          openCard = null;
+          card.focus({ preventScroll: true });
+        }
+        if (!M) { finish(); return; }
+        if (reduced()) {
+          animate(pdBackdrop, { opacity: 0 }, spring.default);
+          animate(pdPanel, { opacity: 0 }, spring.default).then(finish);
+          return;
+        }
+        var from = card.getBoundingClientRect();
+        pdPanel.style.transform = 'none';
+        var to = pdPanel.getBoundingClientRect();
+        animate(pdContent, { opacity: 0 }, spring.hover);
+        animate(pdBackdrop, { opacity: 0 }, spring.default);
+        animate(pdPanel, {
+          x: from.left - to.left, y: from.top - to.top,
+          scaleX: from.width / to.width, scaleY: from.height / to.height
+        }, spring.default).then(finish);
+      }
+
+      $('pd-close').addEventListener('click', closeProject);
+      pdBackdrop.addEventListener('click', closeProject);
+      document.addEventListener('keydown', function (e) {
+        if (openIndex === -1) return;
+        if (e.key === 'Escape') { closeProject(); return; }
+        if (e.key === 'Tab') { // focus blijft in het paneel
+          var items = pdPanel.querySelectorAll('button, a[href]');
+          if (!items.length) return;
+          var first = items[0], last = items[items.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+
+      // ---------- Tools-band ----------
+      var track = $('tools-track');
+      var marquee = $('marquee');
+      var marqueeControls = null;
+      var speedAnim = null;
+      function renderTools() {
+        track.textContent = '';
+        for (var copy = 0; copy < 2; copy++) {
+          tools.forEach(function (name) {
+            var li = make('li', '', name);
+            if (copy) li.setAttribute('aria-hidden', 'true');
+            track.appendChild(li);
+          });
+        }
+      }
+      function setMarqueeSpeed(to) {
+        if (!marqueeControls) return;
+        if (speedAnim) speedAnim.stop();
+        speedAnim = animate(marqueeControls.speed, to, Object.assign({}, spring.hover, {
+          onUpdate: function (v) { marqueeControls.speed = Math.max(v, 0.0001); }
+        }));
+      }
+      function startMarquee() {
+        renderTools();
+        if (!M || reduced()) {
+          root.classList.add('no-motion');
+          Array.prototype.slice.call(track.children, tools.length).forEach(function (li) { li.remove(); });
+          return;
+        }
+        // Constante band; alleen het vertragen bij hover gaat met een spring.
+        marqueeControls = animate(track, { x: ['0%', '-50%'] }, { duration: 40, ease: 'linear', repeat: Infinity });
+        M.hover(marquee, function () {
+          setMarqueeSpeed(0);
+          return function () { setMarqueeSpeed(1); };
+        });
+      }
+
+      // ---------- Tijdlijn ----------
+      var timelineEl = $('timeline');
+      var tlFill = $('tl-fill');
+      function renderTimeline() {
+        var list = $('tl-list');
+        list.textContent = '';
+        timeline.forEach(function (item) {
+          var li = make('li', 'tl-item');
+          li.appendChild(make('span', 'tl-dot'));
+          li.lastChild.setAttribute('aria-hidden', 'true');
+          li.appendChild(make('div', 'tl-year', pick(item.year)));
+          li.appendChild(make('h3', '', pick(item.title)));
+          li.appendChild(make('p', '', pick(item.text)));
+          list.appendChild(li);
+        });
+        updateTimeline();
+      }
+      function updateTimeline() {
+        var rect = timelineEl.getBoundingClientRect();
+        var vh = window.innerHeight;
+        var p = Math.min(1, Math.max(0, (vh * 0.7 - rect.top) / rect.height));
+        tlFill.style.transform = 'scaleY(' + (reduced() ? (p > 0 ? 1 : 0) : p) + ')';
+        Array.prototype.forEach.call(timelineEl.querySelectorAll('.tl-item'), function (li) {
+          li.classList.toggle('on', li.getBoundingClientRect().top < vh * 0.7);
+        });
+      }
+
+      // ---------- Statistieken (echte gegevens uit GitHub) ----------
+      var GITHUB_USER = 'ky0806';
+      var stats = null; // { repos, commits, days }
+      var statsCounted = false;
+      function setStats() {
+        var repos = $('stat-repos'), commits = $('stat-commits'), update = $('stat-update'), unit = $('stat-unit');
+        if (!stats) return;
+        var targets = [[repos, stats.repos], [commits, stats.commits], [update, stats.days]];
+        function show(el, value) { el.textContent = String(Math.round(value)); }
+        if (!statsCounted && M && !reduced()) {
+          targets.forEach(function (pair) {
+            animate(0, pair[1], Object.assign({}, spring.default, { onUpdate: function (v) { show(pair[0], v); } }));
+          });
+        } else {
+          targets.forEach(function (pair) { show(pair[0], pair[1]); });
+        }
+        statsCounted = true;
+        if (stats.days === 0) { update.textContent = ''; unit.textContent = t('stats.today'); }
+        else unit.textContent = t(stats.days === 1 ? 'stats.dayAgo' : 'stats.daysAgo');
+      }
+      function loadStats() {
+        var base = 'https://api.github.com/users/' + GITHUB_USER;
+        function get(url) { return fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r; }); }
+        Promise.all([get(base).then(function (r) { return r.json(); }), get(base + '/repos?sort=pushed&per_page=1').then(function (r) { return r.json(); })])
+          .then(function (res) {
+            var latest = res[1][0];
+            var days = latest && latest.pushed_at ? Math.max(0, Math.floor((Date.now() - new Date(latest.pushed_at).getTime()) / 86400000)) : 0;
+            // Aantal commits van de nieuwste repo: het paginanummer van de laatste pagina bij 1 commit per pagina.
+            return (latest ? get('https://api.github.com/repos/' + latest.full_name + '/commits?per_page=1') : Promise.reject())
+              .then(function (r) {
+                var match = /[?&]page=(\d+)>; rel="last"/.exec(r.headers.get('Link') || '');
+                return r.json().then(function (list) { return match ? parseInt(match[1], 10) : list.length; });
+              })
+              .then(function (commits) {
+                stats = { repos: res[0].public_repos, commits: commits, days: days };
+                setStats();
+              });
+          })
+          .catch(function () { /* geen verbinding of limiet bereikt: de streepjes blijven staan */ });
+      }
+
+      // ---------- Taal toepassen ----------
+      var sending = false;
+      var lastStatus = null; // { kind, key }; zo wordt de melding mee vertaald bij een taalwissel
+      var form = $('contact-form');
+      var button = form.querySelector('button[type="submit"]');
+      var status = $('form-status');
+      var ERROR_KEYS = { missing_fields: 'form.err.missing', too_long: 'form.err.long', invalid_email: 'form.err.email' };
 
       function show(kind, key) {
         lastStatus = { kind: kind, key: key };
@@ -555,29 +980,35 @@
         document.title = t('meta.title');
         if (metaDescription) metaDescription.setAttribute('content', t('meta.description'));
 
-        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function (el) {
           el.textContent = t(el.getAttribute('data-i18n'));
         });
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-placeholder]'), function (el) {
           el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
         });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-aria-label]'), function (el) {
+          el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria-label')));
+        });
+        renderStatement();
         renderProjects();
+        renderTimeline();
+        setStats();
         if (sending) button.textContent = t('form.sending');
         if (lastStatus) show(lastStatus.kind, lastStatus.key);
 
-        switchButtons.forEach(function (b) {
+        Array.prototype.forEach.call(switchButtons, function (b) {
           b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
         });
-
         if (persist) {
           try { localStorage.setItem('lang', lang); } catch (e) {}
         }
       }
 
-      switchButtons.forEach(function (b) {
+      Array.prototype.forEach.call(switchButtons, function (b) {
         b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang'), true); });
       });
 
+      // ---------- Contactformulier ----------
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         status.hidden = true;
@@ -614,8 +1045,8 @@
           });
       });
 
-      // Klokje: tijd in Weert (Europe/Amsterdam), elke minuut bijgewerkt op de minuutwisseling.
-      var clock = document.getElementById('clock');
+      // ---------- Klokje (Weert, Europe/Amsterdam) ----------
+      var clock = $('clock');
       var timeFormat = null;
       try {
         timeFormat = new Intl.DateTimeFormat('nl-NL', { timeZone: 'Europe/Amsterdam', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
@@ -626,23 +1057,55 @@
       }
       if (timeFormat) tick(); else clock.parentNode.hidden = true;
 
-      // Dunne lijn onder de vaste navigatie zodra er gescrold is.
-      var nav = document.getElementById('site-nav');
-      function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 8); }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
+      // ---------- Scrollen: nav-lijn, parallax-vormen, tijdlijn ----------
+      var nav = $('site-nav');
+      var shapes = Array.prototype.slice.call(document.querySelectorAll('.shape'));
+      function onScroll() {
+        nav.classList.toggle('scrolled', window.scrollY > 8);
+        if (M && !reduced()) {
+          shapes.forEach(function (s) {
+            s.style.transform = 'translate3d(0,' + (window.scrollY * parseFloat(s.getAttribute('data-speed'))).toFixed(1) + 'px,0)';
+          });
+        }
+        updateTimeline();
+      }
+      if (M) M.scroll(onScroll); else window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
 
-      reveal(document.querySelector('#projects h2'), 0);
-      reveal(document.querySelector('#projects .sub'), 0.1);
-      reveal(document.querySelector('#contact h2'), 0);
-      reveal(document.querySelector('#contact .sub'), 0.1);
-      reveal(form, 0.2);
+      // ---------- Hero: stat-kaart kantelt mee met de muis (max ±8°) ----------
+      var statCard = $('stat-card');
+      if (M && !reduced()) {
+        statCard.addEventListener('pointermove', function (e) {
+          if (e.pointerType !== 'mouse' || !hoverQuery.matches) return;
+          var r = statCard.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width - 0.5;
+          var py = (e.clientY - r.top) / r.height - 0.5;
+          animate(statCard, { rotateY: px * 16, rotateX: -py * 16 }, spring.hover);
+        });
+        statCard.addEventListener('pointerleave', function () {
+          animate(statCard, { rotateX: 0, rotateY: 0 }, spring.hover);
+        });
+      }
 
-      // Standaard Nederlands, ongeacht de browsertaal. Alleen een eerdere EN-keuze van de bezoeker telt.
+      // ---------- Start ----------
       var saved = null;
       try { saved = localStorage.getItem('lang'); } catch (e) {}
       applyLang(saved === 'en' ? 'en' : DEFAULT_LANG, false);
+      startMarquee();
       root.className = root.className.replace(' i18n-pending', '');
+
+      if (M) {
+        // Intro van de hero en inkomen van de secties.
+        ['hero-label'].forEach(function (id) { $(id).style.opacity = '0'; fadeUp($(id), 0); });
+        $('hero-name').style.opacity = '0'; fadeUp($('hero-name'), 0.55);
+        $('hero-links').style.opacity = '0'; fadeUp($('hero-links'), 0.65);
+        $('stat-wrap').style.opacity = '0'; fadeUp($('stat-wrap'), 0.4);
+        Array.prototype.forEach.call(document.querySelectorAll('section > h2, section > .sub'), function (el, i) { appear(el, el.tagName === 'H2' ? 0 : 0.1); });
+        appear(marquee, 0.15);
+        appear(timelineEl, 0.1);
+        appear(form, 0.2);
+      }
+      loadStats();
     })();
   </script>
 </body>

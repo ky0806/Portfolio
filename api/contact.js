@@ -1,8 +1,17 @@
 // Vercel serverless function: stuurt berichten van het contactformulier via Resend naar CONTACT_TO.
-// Environment variables: RESEND_API_KEY, CONTACT_TO
+// Noemt het bericht een van de ADMIN_KEYWORDS, dan gaat er ook een kopie naar CONTACT_TO_ADMIN.
+// Environment variables:
+//   RESEND_API_KEY    (verplicht) API-sleutel van Resend
+//   CONTACT_TO        (verplicht) ontvanger van alle berichten
+//   CONTACT_TO_ADMIN  (optioneel) extra ontvanger voor berichten die een trefwoord bevatten
+//   CONTACT_FROM      (optioneel) afzender, bv. "Portfolio <contact@kaanyucel.nl>"; zonder deze
+//                     variabele wordt de testafzender van Resend gebruikt
 
 const LIMITS = { name: 100, email: 200, message: 5000 };
 const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
+const DEFAULT_FROM = 'Portfolio <onboarding@resend.dev>';
+// Kleine letters; er wordt zonder hoofdletters gezocht, ook binnen woorden (bv. "boekhoudadministratie").
+const ADMIN_KEYWORDS = ['administratie'];
 
 function escapeHtml(s) {
   return s
@@ -11,6 +20,22 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function findKeyword(text) {
+  const lower = text.toLowerCase();
+  return ADMIN_KEYWORDS.find((word) => lower.includes(word)) || null;
+}
+
+function sendMail(apiKey, payload) {
+  return fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + apiKey,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
 }
 
 function parseBody(req) {
@@ -64,30 +89,42 @@ module.exports = async function handler(req, res) {
   // Geen regeleinden in de naam, zodat die niet in de mail-header terechtkomen.
   const safeName = name.replace(/[\r\n]+/g, ' ');
 
+  const from = process.env.CONTACT_FROM || DEFAULT_FROM;
+  const subject = 'Nieuw bericht via kaanyucel.nl van ' + safeName;
+  const text = 'Naam: ' + safeName + '\nE-mail: ' + email + '\n\n' + message;
+  const html =
+    '<p><strong>Naam:</strong> ' + escapeHtml(safeName) + '<br>' +
+    '<strong>E-mail:</strong> ' + escapeHtml(email) + '</p>' +
+    '<p style="white-space:pre-wrap">' + escapeHtml(message) + '</p>';
+
   try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + apiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'Portfolio <onboarding@resend.dev>',
-        to: [to],
-        reply_to: email,
-        subject: 'Nieuw bericht via kaanyucel.nl van ' + safeName,
-        text: 'Naam: ' + safeName + '\nE-mail: ' + email + '\n\n' + message,
-        html:
-          '<p><strong>Naam:</strong> ' + escapeHtml(safeName) + '<br>' +
-          '<strong>E-mail:</strong> ' + escapeHtml(email) + '</p>' +
-          '<p style="white-space:pre-wrap">' + escapeHtml(message) + '</p>',
-      }),
-    });
+    const response = await sendMail(apiKey, { from, to: [to], reply_to: email, subject, text, html });
 
     if (!response.ok) {
       // Details alleen in de serverlogs, nooit naar de browser.
       console.error('Resend error', response.status, await response.text());
       return res.status(500).json({ ok: false, code: 'send_failed', error: 'Sending failed. Please try again later.' });
+    }
+
+    // Extra kopie als het bericht een trefwoord bevat. Dit is een aparte mail, zodat een fout hier
+    // (bijvoorbeeld een nog niet geverifieerd domein) nooit de hoofdmail of de bezoeker raakt.
+    const adminTo = process.env.CONTACT_TO_ADMIN;
+    const keyword = adminTo ? findKeyword(message) : null;
+    if (keyword) {
+      try {
+        const note = 'Je ontvangt dit bericht omdat het woord "' + keyword + '" erin voorkomt.';
+        const copy = await sendMail(apiKey, {
+          from,
+          to: [adminTo],
+          reply_to: email,
+          subject,
+          text: note + '\n\n' + text,
+          html: '<p><em>' + escapeHtml(note) + '</em></p>' + html,
+        });
+        if (!copy.ok) console.error('Resend error (admin copy)', copy.status, await copy.text());
+      } catch (copyErr) {
+        console.error('Contact form: admin copy failed', copyErr && copyErr.message);
+      }
     }
 
     return res.status(200).json({ ok: true });

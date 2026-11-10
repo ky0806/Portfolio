@@ -16,8 +16,10 @@ Persoonlijke portfoliosite. Live op https://kaanyucel.nl (ook kaanyucel.vercel.a
 - Afzender is voorlopig `Portfolio <onboarding@resend.dev>`; `reply_to` is het e-mailadres van de bezoeker. Onderwerp: "Nieuw bericht via kaanyucel.nl van [naam]".
 - Environment variables (Vercel → Settings → Environment Variables, daarna opnieuw deployen):
   - `RESEND_API_KEY`: API-sleutel uit het Resend-account.
-  - `CONTACT_TO`: ontvanger van de berichten (kaanspam@outlook.com).
-- Met de testafzender `onboarding@resend.dev` mailt Resend alleen naar het adres van het Resend-account zelf. Voor andere ontvangers eerst het domein kaanyucel.nl verifiëren in Resend en de afzender aanpassen.
+  - `CONTACT_TO`: ontvanger van alle berichten.
+  - `CONTACT_TO_ADMIN` (optioneel): extra ontvanger. Staat het woord "administratie" (hoofdletterongevoelig, ook binnen woorden, alleen in het bericht zelf) in een bericht, dan gaat er een aparte kopie naar dit adres met bovenaan een korte uitleg. De trefwoorden staan in `ADMIN_KEYWORDS` in `api/contact.js`. Mislukt de kopie, dan wordt dat alleen gelogd en blijft de hoofdmail gewoon aankomen.
+  - `CONTACT_FROM` (optioneel): afzender, bv. `Portfolio <contact@kaanyucel.nl>`. Zonder deze variabele wordt `Portfolio <onboarding@resend.dev>` gebruikt.
+- Met de testafzender `onboarding@resend.dev` mailt Resend alleen naar het adres van het Resend-account zelf. Voor andere ontvangers (zoals kaan@finsera.nl en oner@finsera.nl) eerst een domein, bijvoorbeeld kaanyucel.nl, verifiëren in Resend en daarna `CONTACT_FROM` zetten.
 - In het contactblok staat bewust geen e-mailadres; bezoekers gebruiken daar alleen het formulier. Wel staat kaan@finsera.nl als `mailto:`-link in het midden van de navigatiebalk (`.nav-mail`, verborgen onder 960 px breed).
 - Meldingen aan bezoekers staan in `translations` (zie "Taal"). De API geeft bij fouten een `code` (`missing_fields`, `too_long`, `invalid_email`, `send_failed`, ...) en de pagina vertaalt die; de Engelse `error`-tekst uit de API wordt niet getoond. Het onderwerp van de mail aan Kaan is altijd Nederlands.
 - Lokaal testen kan met `vercel dev` (de `/api`-route werkt niet via een gewone statische server).

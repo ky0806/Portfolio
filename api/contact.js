@@ -11,7 +11,7 @@ const LIMITS = { name: 100, email: 200, message: 5000 };
 const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
 const DEFAULT_FROM = 'Portfolio <onboarding@resend.dev>';
 // Kleine letters; er wordt zonder hoofdletters gezocht, ook binnen woorden (bv. "boekhoudadministratie").
-const ADMIN_KEYWORDS = ['administratie'];
+const ADMIN_KEYWORDS = ['administratie', 'administration'];
 
 function escapeHtml(s) {
   return s
